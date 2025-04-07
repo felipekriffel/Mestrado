@@ -390,6 +390,15 @@ Aqui, focamos nos dois primeiros: \textbf{Expressabilidade} e \textbf{Eficiênci
     \tableofcontents[currentsection]
 \end{frame}
 
+\begin{frame}{Custo de Achatamento}
+    \textbf{Exemplo:} Fatoração de matrizes
+    \begin{itemize}
+        \item FFT (Transformada rápida de Fourier);
+        \item Matrizes de posto baixo: $A = MN$, com $M_{n\times k}, N_{k \times n}$;
+        \item Cholesky, LU, QR esparsas;  
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Teorema 2}
     \textbf{Teorema:} Dados $x_1,\dots,x_n \in \mathbb R$ e $\sigma \in C^\infty$, o monômio $\Pi_{i=1}^n x_i$ pode ser aproximado por uma rede neural de 1 camada com $2^n$ neurônios, seguindo a fórmula
 
@@ -606,91 +615,143 @@ Aqui, focamos nos dois primeiros: \textbf{Expressabilidade} e \textbf{Eficiênci
     \textbf{Exemplo:} para fazer o produto de $n=8$ variáveis distintas, uma rede de 1 camada escondida precisaria de $2^8=256$ neurônios. Porém, podemos aproximar por uma rede de 3 camadas escondidas, totalizando 28 neurônios.
 \end{frame}
 
-% \begin{frame}{Custo de Achatamento}
-%     Definimos os custos de achatamento por contagem de neurônios e por sinapses, respectivamente, como:
+\subsection{Interpretações físicas}
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
 
-%     \begin{align*}
-%         C_n(f,l,\varepsilon) = \min_{f^l_\varepsilon} \frac{N_n(f^l_\varepsilon)}{N_n(f)} \\
-%         C_s(f,l,\varepsilon) = \min_{f^l_\varepsilon} \frac{N_s(f^l_\varepsilon)}{N_s(f)}
-%     \end{align*}.
-% \end{frame}
+\begin{frame}{Probabilidade condicional}
 
-% \begin{frame}{Custo de Achatamento}
-%     \textbf{Definição:} Se $f$ é rede neural, dizemos que uma rede $f^l_\varepsilon$ é sua versão achatada se tem um número $l$ menor de camadas que $f$ e aproxima $f$ a um erro $\varepsilon$ (para uma distância estabelecida).
+   Considere $p:X \to (0,1)$ uma distribuição de probabilidade sobre um espaço X. A probabilidade condicional: 
+
+   \begin{equation}
+       p(\bf{x}|y) = \frac{p(\bf{x}\cup y)}{p(y)}
+   \end{equation}
+
+   \begin{itemize}
+       \item $\bf{x}$ varia no espaço amostral;
+       \item $y$ é outra variável condicionando, ou um parâmetro do modelo
+   \end{itemize}
+   
+   \pause
+
+   \textbf{Exemplos}:
+
+   \begin{itemize}
+       \item $\bf x$ é o vetor de pixels da imagem e $y$ é um elemento de um conjunto de animais \{Gato, Cachorro, Coelho, etc.\};
+       \item $\bf x$ é a magnetização em cada parte de uma barra de metal, $y$ é um elemento de um conjunto de elementos \{Ferro, Alumínio, etc.\}
+   \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Teorema de Bayes}
+   
+   Calcular $p(\mathbf{x}|y)$ é conhecido como problema de \textbf{predição}, e $p(y|\mathbf x)$ de \textbf{classificação}.
+   \vspace{1em}
+
+   \pause
+   
+   Para calcular $p(y| \mathbf x)$, usamos o \textbf{Teorema de Bayes}:
+
+   \begin{align*}
+       p(y|\mathbf x) &= \frac{p(\mathbf{x}|y)p(y)}{\sum_{y' \in Y}p(\mathbf{x}|y')p(y')}
+       &\left( = \frac{p(\mathbf{x}|y)p(y)}{p(\mathbf{x})} \right)
+   \end{align*}
+   
+
+   \begin{itemize}
+       \item $p(y)$ é chamada informação a priori;
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Hamiltoniano}
+    Estamos interessados nas quantidades
+    \begin{itemize}
+        \item $H_y(\mathbf x) = -\ln p(\mathbf x | y)$, chamado \textbf{Hamiltoniano}
+        \item $\mu_y = -\ln p(y)$. 
+    \end{itemize}
+
     
-%     \vspace{1em}
-    
-%     I.e., se $f = \sigma_k A_k \cdots \sigma_1 A_1$, $f_\varepsilon^l=\eta_l A_l \cdots \eta_1 A_1$ temos $l<k$ e $|f(\mathbf x) - f_\varepsilon^l(\mathbf x)|<\varepsilon$, para todo $x \in D(f)$.
+    \textbf{Exemplo:} se $p(x) = \frac{e^{-x^2}}{\sqrt{2\pi}}$, então
+    \[
+        \mu_y = - \ln \left(\frac{e^{-x^2}}{\sqrt{2\pi}}\right) = x^2 - \ln(\sqrt{2\pi}).
+    \]
+\end{frame}
 
-%     \vspace{1em}
-% \end{frame}
+\begin{frame}{Hamiltoniano}
+    Uma distribuição $p(x|y)$ pode ser escrita de forma geral compo
+    \[
+    p(y|x) = \frac{1}{S(x)}e^{-[H_y(x) - \mu_x]}
+    \]
+    com
+    \[
+    S(x) = \sum_y e^{-[H_y(x) - \mu_x]}
+    \]
 
-% \begin{frame}{Custo de Achatamento}
-%     \textbf{Definição:} Chamamos o número de neurônios $N_n(f)$ de uma rede $f$ a soma das dimensões de suas camadas escondidas. I.e, se $f = \sigma_k A_k \cdots \sigma_1 A_1$ e $A_i : \mathbb R^{n_i} \to \mathbb R^{m_i}$, p/ $i=1, \dots, k$, então
+    \pause
 
-%     \[
-%         N_n(f) = n_1 + \sum_{i=1}^k m_i.
-%     \]
+    Ou, de forma vetorial, juntando os Hamiltonianos de cada variável $p_y$ em vetores:
+    \[
+        \mathbf{p(x)} = \frac{1}{S(x)}e^{-[\mathbf H(\mathbf x) - \mu]}
+    \]
+\end{frame}
 
-%     \textbf{Definição:} Chamamos o número de sinapses $N_s(f)$ de uma rede $f$ o número de entradas não-nulas das matrizes de pesos $A_i$.
+\begin{frame}{Hamiltoniano}
+    \textbf{Motivação:} Se utilizarmos como função de ativação a Softmax
+    \[
+        \sigma_i(\mathbf x) = \frac{1}{\sum_{j=1}^n e^{x_j}}(e^{x_1}, \dots, e^{x_n})
+    \]
 
-%     \pause
+    juntando cada um dos 
 
-%     \textbf{Definição:} Dizemos que $\mathbf f^l_\varepsilon$ é um achatamento neurônio-eficiente de $f$ se $N_n(f_\varepsilon^l)<N_n(f)$.
-    
-%     \vspace{1em}
-    
-%     \textbf{Definição:} Dizemos que $\mathbf f^l_\varepsilon$ é um achatamento sinapse-eficiente de $f$ se $N_s(f_\varepsilon^l)<N_s(f)$.
+    podemos escrever a equação anterior como:
+    \[
+    \mathbf{p(x)} = \sigma (-\mathbf H(\mathbf x) - \mathbf \mu)
+    \]
+\end{frame}
 
-%     \vspace{1em}
 
-% \end{frame}
+\begin{frame}{Hamiltoniano}
+    \textbf{Motivação:} Os autores atestam que os fenômenos físicos, em geral, são descritos por Hamiltonianos relativamente simples: \pause polinômios ou podem ser aproximados por séries de Taylor.
 
-%\subsection{Interpretações físicas}
-%\begin{frame}{Probabilidade condicional}
-%
-%    Considere $p:X \to (0,1)$ uma distribuição de probabilidade sobre um espaço X. A probabilidade condicional: 
-%
-%    \begin{equation}
-%        p(\bf{x}|y) = \frac{p(\bf{x}\cup y)}{p(y)}
-%    \end{equation}
-%
-%    \begin{itemize}
-%        \item $\bf{x}$ varia no espaço amostral;
-%        \item $y$ é outra variável condicionando, ou um parâmetro do modelo
-%    \end{itemize}
-%    
-%    \pause
-%
-%    \textbf{Exemplos}:
-%
-%    \begin{itemize}
-%        \item $\bf x$ é o vetor de pixels da imagem e $y$ é um elemento de um conjunto de animais \{Gato, Cachorro, Coelho, etc.\};
-%        \item $\bf x$ é a magnetização em cada parte de uma barra de metal, $y$ é um elemento de um conjunto de elementos \{Ferro, Alumínio, etc.\}
-%    \end{itemize}
-%
-%\end{frame}
-%
-%\begin{frame}{Teorema de Bayes}
-%    
-%    Calcular $p(\mathbf{x}|y)$ é conhecido como problema de \textbf{predição}, e $p(y|\mathbf x)$ de \textbf{classificação}.
-%    \vspace{1em}
-%
-%    \pause
-%    
-%    Para calcular $p(y| \mathbf x)$, usamos o \textbf{Teorema de Bayes}:
-%
-%    \begin{align*}
-%        p(y|\mathbf x) &= \frac{p(\mathbf{x}|y)p(y)}{\sum_{y' \in Y}p(\mathbf{x}|y')p(y')}
-%        
-%        &\left( = \frac{p(\mathbf{x}|y)p(y)}{p(\mathbf{x})} \right)
-%    \end{align*}
-%    
-%
-%    \begin{itemize}
-%        \item $p(y)$ é chamada informação a priori;
-%    \end{itemize}
-%\end{frame}
+    \pause
+
+    E.g.
+
+    \[
+        H_y(x) = \sum^d_{x} h + \sum h_i x_i + \sum_{i \leq j} h_{ij} x_i x_j + \sum_{i \leq j \leq k} h_{ijk} x_i x_j x_k + \cdots
+    \]
+
+\end{frame}
+
+\begin{frame}{Outras razões físicas}
+    \small
+    Alguns motivos levantados pelos autores são: \pause
+    \begin{enumerate}
+        \item Hamiltonianos da física tem ordem polinomial baixa (de 2 a 4 em geral); \pause
+        \item Diversos fenônemos são \textit{locais}, acontecem numa vizinhança muito próxima; 
+        \item Muitos fenônemos apresentam simetrias, que diminuem drasticamente o número de parâmetros.
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Razões para o aprendizado ser 'profundo'}
+    \small
+    \begin{enumerate}
+        \item Hierarquia de processos (estocásticos, probabilísticos, etc); \pause
+        \item Os processos que controlam cada etapa são modelados por poucos parâmetros; \pause
+        \item Certas funções são caras para achatar, sendo mais valioso aproximar com mais camadas; 
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Razões para o aprendizado ser 'profundo'}
+    \begin{figure}
+        \includegraphics[width=0.6\textwidth]{fig/diagram.png}
+        \caption{Diagrama ilustrando a cadeia de processos físicos}
+    \end{figure}
+
+\end{frame}
 
 \section{Referências}
 \begin{frame}
