@@ -67,6 +67,52 @@ Os polinômios atacam novamente}
 \end{frame}
 
 \section{Introdução}
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{No artigo anterior...}
+
+    No artigo \cite{Lin2017}, foram demonstrados 2 Teoremas principais:
+
+    \begin{teo}
+        dado $\varepsilon>0$, para qualquer $\sigma$ não linear (aplicada ponto a ponto), existem  $A_1:\mathbb R^2 \to \mathbb R^4, A_2:\mathbb R^4 \to \mathbb R$ tais que a rede $f(x) = A_2 \sigma A_1 \mathbf{x}$ é tal que, dado $x=(u \; v)^T$ qualquer
+    \[
+        |f(x) - uv|<\varepsilon
+    \]
+    para $u,v$ em um compacto qualquer.
+    \end{teo}
+
+\end{frame}
+
+\begin{frame}{No artigo anterior...}
+    \begin{teo}
+
+    Dados $x_1,\dots,x_n \in \mathbb R$ e $\sigma \in C^\infty$, o monômio $\Pi_{i=1}^n x_i$ pode ser aproximado por uma rede neural de 1 camada com $2^n$ neurônios, seguindo a fórmula
+
+    \[
+        \Pi_{i=1}^n x_i \approx \frac{1}{2^n} \sum_{\{s\}}s_1 \cdots s_n \sigma(s_1 x_1 + \cdots + s_n x_n),
+    \]
+
+    onde $s_i \in \{-1,1\}$, para cada $i = 1,\dots,k$, e a soma é tomada sobre todas as $2^n$ configurações possíveis de $s_1 \cdots s_n$.
+
+    Além disso, essa é a menor rede de 1 camada capaz de fazer tal aproximação.
+    
+    \end{teo}
+
+    \textbf{Obs:} A aproximação acima é no sentido que ambas as funções têm mesma expansão de Taylor em torno de 0 até termos de ordem $n$.
+
+\end{frame}
+
+\begin{frame}{Neste artigo:}
+    A segugir, nós
+    \begin{itemize}
+        \item Aprofundamos a discussão sobre número de camadas; \pause
+        \item Construímos aproximações mais enxutas para uma classe maior de polinômios; \pause
+        \item Obtemos estimativas para números de neurônios em redes de diferentes profundidades.
+    \end{itemize}
+
+\end{frame}
 
 \section{O poder da Aproximação}
 \begin{frame}
@@ -152,7 +198,7 @@ Os polinômios atacam novamente}
 \end{frame}
 
 \begin{frame}{Prop 3.3 - Demonstração}
-    Como $i>d$, para $\delta$ suficientemente pequeno, cada $\delta^{i-d}$ se torna tão pequeno quanto queira, assim como $\frac{1}{\delta^d}E_i(\delta x) = \delta^{i-d} E_i(\delta x)$. Logo, $\frac{E(\delta x)}{\delta^d}$é arbitrariamente pequeno.
+    Como $i>d$, para $\delta$ suficientemente pequeno, cada $\delta^{i-d}$ se torna tão pequeno quanto queira, assim como $\frac{1}{\delta^d}E_i(x) = \delta^{i-d} E_i(\delta x)$. Logo, $\frac{E(\delta x)}{\delta^d}$é arbitrariamente pequeno.
 
     \pause
 
@@ -188,7 +234,13 @@ Os polinômios atacam novamente}
     \begin{teo}
         Suponha que $p(x)$ é um polinômio de grau $d$ multivariado e que $\sigma_i := \sigma^{(i)}(0) \neq 0$, para cada $i\leq d$. Seja $m_k^\varepsilon(p)$ o número mínimo de neurônios em uma rede de profundidade $k$ que $\varepsilon-$aproxima $p$ em um compacto $K$. \pause 
         \vspace{1em}
-        Então, o limite $\lim_{\varepsilon>0}m_k^\varepsilon(p)$ existe e é finito. 
+        Então, o limite 
+        
+        \[
+        \lim_{\varepsilon>0}m_k^\varepsilon(p)        
+        \]
+        
+        existe e é finito. 
     \end{teo}
 \end{frame}
 
@@ -297,6 +349,17 @@ Os polinômios atacam novamente}
         \end{itemize}
     
     \end{teo}
+\end{frame}
+
+\begin{frame}{Teo 4.1 e 4.2 - Demonstração (Ideia)}
+    Ideia: mesmo procedimento do Teorema 2 de \citeonline{Lin2017} de fazer somas alternadas de $\sigma(\pm y_1 \pm y_2 \pm \cdots \pm y_m)$, sendo $y_j$ as variávies $x_i$ levando em conta as repetições. \pause
+    
+    
+    Aqui, notamos que se temos $r_i$ repetições de cada termo $x_i$, há apenas $r_i+1$ formas de dispor os sinais nessa soma. \pause No total, são $\prod^n_{i=1} (r_i+1)$ funções $\sigma(\pm x_1 \pm x_2 \pm \cdots \pm x_n)$.
+
+    \pause
+
+    No que segue, o procedimento é o mesmo, considerando as particularidades.
 \end{frame}
 
 \begin{frame}{Teorema 4.3}
@@ -542,6 +605,106 @@ Os polinômios atacam novamente}
     \end{teo}
 \end{frame}
 
+\begin{frame}{Teo 5.1 - Demonstração (?)}
+    Ideia: Construção de uma rede separando as variáveis em grupos e multiplicando eles recursivamente. 
+
+    \pause
+    \vspace{1em}
+
+    Separamos as $n$ variáveis em grupos de $b_1$ elementos.\pause Cada grupo desse precisa de $2^{b_1}$ neurônios para ser multiplicado \cite[Teorema 2]{Lin2017}. \pause 
+    No total, temos $\frac{n}{b_1} 2^{b_1}$ neurônios na 1ª camada.
+    
+    \pause
+    \vspace{1em}
+
+    Na camada seguinte, separamos os $\frac{n}{b_1}$ produtos em grupos de $b_2$ elementos, fazendo o produto entre eles. Cada grupo desse leva $2^{b_2}$ neurônios para multiplicar, totalizando $\frac{n}{b_1b_2} 2^{b_2}$ produtos.
+
+    \pause
+    \vspace{1em}
+\end{frame}
+
+\begin{frame}{Teo. 5.1 - Demonstração (?)}
+
+    Recursivamente, fazemos o processo em grupos de $b_1,b_2,\dots,b_k$ de modo que $n = b_1b_2 \cdots b_k$, tendo a cada $i-$ésima etapa: \pause
+    \begin{itemize}
+        \item $\frac{n}{b_1 b_2 \cdots b_i}$ grupos de elementos;
+        \item $2^{b_i}$ neurônios por grupo.
+    \end{itemize}
+    \pause
+    sendo $\frac{n}{\prod_{j=1}^i b_j} 2^{b_i}$ neurônios por camada, totalizando nas $k$ camadas: \pause
+    \begin{equation*}
+        N = \sum_{i=1}^k \frac{n}{\prod_{j=1^i} b_j} 2^{b_i} = \sum_{i=1}^n\left(\prod^k_{j=i+1} b_j \right) 2^{b_i}
+    \end{equation*}
+    neurônios.
+
+\end{frame}
+
+\begin{frame}{Teo. 5.1 - Demonstração (?)}
+    \small
+
+    Essa construção faz, portanto, uma Taylor-aproximação de $p$ com $k$ camadas com o número apresentado de neurônios, de modo que:
+    \begin{equation}
+        m^\text{Taylor}_k(p) \leq \sum_{i=1}^n\left(\prod^k_{j=i+1} b_j \right) 2^{b_i}.
+    \end{equation}
+    
+    \pause
+
+    Como $p(x) = x_1 x_2 \cdots x_n$ é homogêneo, segue pela Proposição~3.3 que $m^\text{uniform}_k (p) \leq m^\text{Taylor}_k(p)$. \pause Estabelecendo $b_i = n^{\frac 1 k}$:
+    \begin{align*}
+        m^\text{Taylor}_k(p) \leq \sum_{i=1}^n\left(\prod^k_{j=i+1} n^{\frac 1 k} \right) 2^{n^{\frac 1 k}} 
+        &= 2^{n^{\frac 1 k}} \left( n^{\frac{k-1}{k}} + n^{\frac{k-2}{k}} + \cdots  \right) \\
+        &= \mathcal O (2^{n^{\frac 1 k}} n^{\frac{k-1}{k}}). \quad \square
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}{Teo 5.1 - Comentários}
+
+    Algumas questões:
+    \begin{itemize}
+        \item $n= b_1b_2 \cdots b_k$ ? \pause
+        \item $b_i = n^{\frac 1 k} ?$ \pause
+        \item O que seria um $b_i$ fracionário?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Teo 5.1 - Comentários}
+    Vimos que o número de neurônios é dado por
+    \begin{equation*}
+        \sum_{i=1}^n\left(\prod^k_{j=i+1} b_j \right) 2^{b_i}.
+    \end{equation*}
+    para $b_i$ tais que $n = \prod^k_{i=1} b_i$.
+    
+    \pause
+    Podemos obter uma escolha ótima dos $b_i$ buscando pontos crítico do Lagrangeano:
+
+    \begin{equation*}
+        \mathcal L(b_i, \lambda) = \left(n - \prod_{i=1}^k b_j\right)\lambda +\sum_{i=1}^n\left(\prod^k_{j=i+1} b_j \right) 2^{b_i}
+    \end{equation*}
+    
+\end{frame}
+
+
+\begin{frame}{Teo 5.1 - Comentários}
+    \small
+    Diferenciando com relação a $b_i$, $\lambda$ e igualando a 0, obtemos:
+    \begin{align*}
+        0 &= -\lambda \prod_{\substack{j \ne i}} b_j 
+        + \sum_{h=1}^{i-1} \left( \frac{\prod_{j=h+1}^{k} b_j}{b_i} \right) 2^{b_h} 
+        + (\log 2) \left( \prod_{j=i+1}^{k} b_j \right) 2^{b_i}, 1 \leq i \leq k \\
+        0 &=  n - \prod_{i=1}^k b_j
+    \end{align*}\pause
+
+    Fazendo um malabarismo algébrico, podemos verificar que:
+
+    \begin{equation*}
+        b_i = b_{i-1} + log_2 \left(b_{i-1} - \frac{1}{\log 2}\right)
+    \end{equation*} \pause
+
+    Assim, $b_i$ cresce lentamente junto a $i$.
+
+\end{frame}
+
 \begin{frame}{Conjectura 5.2}
     Seja $p(x) = x_1x_2 \dots x_n$ e suponha que $\sigma_i \neq 0$, para $i \leq n$. Então, 
 
@@ -550,6 +713,13 @@ Os polinômios atacam novamente}
         \end{equation*}
     
     i.e., o expoente cresce na ordem de $n^{\frac 1 k}$.
+\end{frame}
+
+\begin{frame}
+    \begin{figure}
+        \includegraphics[width=0.9\textwidth]{fig/5.2.png}
+        \caption*{Fonte: \cite{rolnick2018}}
+    \end{figure}
 \end{frame}
 
 \section{Referências}
@@ -572,9 +742,11 @@ Os polinômios atacam novamente}
 \end{center}
 
 \vspace{1em}
-Contato: riffel.felipe@grad.ufsc.br 
+Contato: riffel.felipe@posgrad.ufsc.br 
 
-Repositório com os experimentos desenvolvidos: https://github.com/felipekriffel/TCC-Regularizacao-EIT
+\vspace{1em}
+
+Repositório com os slides: https://github.com/felipekriffel/Mestrado/
     
 \end{frame}
 
