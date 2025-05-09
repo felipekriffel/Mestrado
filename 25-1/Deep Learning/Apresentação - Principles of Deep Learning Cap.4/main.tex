@@ -1,0 +1,619 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{fontawesome}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usetheme{mtmufsc} %%%%%%%%Use this template
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\usepackage[alf]{abntex2cite}
+
+\makeatletter
+\newcommand{\Pause}[1][]{\unless\ifmeasuring@\relax
+\pause[#1]%
+\fi}
+\makeatother
+
+% This is a beamer template inspired by unofficial Oxford University Beamer Template, made by Clara Eleonore Pavillet.
+\title{
+The Principles of Deepn Learning Theory \\    
+Capítulo 4: RG-flow de pré-ativações
+}
+\author{Felipe Kaminsky Riffel}
+\date{\today}
+\institute{Universidade Federal de Santa Catarina}
+
+\begin{document}
+
+{\setbeamertemplate{footline}{} 
+\frame{\titlepage}}
+% \frame{}
+
+\begin{frame}{Sumário}
+    \tableofcontents
+\end{frame}
+  
+% %Sempre que iniciar uma nova sessão, você pode fazer um slide de transição com o índice.
+% \begin{frame}
+% \tableofcontents[currentsection]
+% \end{frame}
+
+\section{Introdução}
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Reintroduzindo notação}
+
+    Dataset com inputs $n_0$-dimensionais e com $N_D$ amostras: 
+
+    $$
+    D = \{x_{i,\alpha}\}_{i=1,\dots,n_0; \alpha=  1, \dots, N_D}
+    $$
+
+    Pré-ativações da 1ª camada são dadas por:
+
+    $$
+    z^{(1)}_{i,\alpha} \equiv z^{(1)}_i(x_\alpha) = b^{(1)}_i + \sum_{j=1}^{n_0} W^{(1)}_{ij} \, x_{j,\alpha}, \quad \text{para } i = 1, \dots, n_1.
+    $$
+
+\end{frame}
+
+\begin{frame}{Reintroduzindo notação}
+    Na inicialização, estabelecemos $b^{(1)},W^{(1)}$ independentemente distribuídas e tais que:
+    
+    $$
+    \mathbb E[b_i^{(1)}] = \mathbb E[W_{i_1j_1}^{(1)}] = 0
+    $$
+    
+    e
+    
+    \begin{align*}
+    \mathbb E[b_i^{(1)}b_j^{(1)}] &= \delta_ij C_b^{(1)} \\
+    \mathbb E[W_{i_1j_1}^{(1)}W_{i_2j_2}^{(1)}] &= \delta_{i_1i_2}\delta_{j_1j_2} \frac{C_W^{(1)}}{n_0}
+    \end{align*}
+
+
+\end{frame}
+
+
+\begin{frame}{Objetivo}
+    Estamos interessados em:
+
+    $$
+    p(z^{(1)}|D) = p(z^{(1)}(x_1),\dots,z^{(1)}(x_{N_D}))
+    $$
+
+\end{frame}
+
+\section{4.1 - 1ª Camada: A boa e velha Gaussiana}    
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.1 - Dois caminhos}
+
+    Vamos fazer a demonstração via 2 caminhos:
+
+    \begin{itemize}
+        \item combinatório, via contrações de Wick e correlatores;
+        \item algébrico, via transformada de Hubbard-Stratonovich.
+    \end{itemize}
+
+\end{frame}
+
+
+\subsection{"Wick this way", derivação algébrica}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.1 - "Wick this way", derivação algébrica}
+
+    Vemos primeiramente que:
+
+    \begin{align*}
+        \mathbb E[z_{i,\alpha}^{(1)}] = \mathbb E[b_i^{(1)} + \sum_{j=1}^{n_0}W_{ij}^{(1)}x_{j,\alpha_1}] \\
+        = \mathbb E[b_i^{(1)}] + \sum_{j=1}^{n_0} \mathbb E[W_{ij}] x_{j,\alpha} = 0        
+    \end{align*}
+
+    dado que as distribuições tem média 0.
+
+    É "fácil ver que" todos os correlatores de ordem ímpar de $p(z^{(1)}| D)$ são zerados, porque sempre sobra um $b^{(1)}$ ou $W^{(1)}$ em cada termo que zera a conta.
+
+\end{frame}
+
+\begin{frame}{4.1 - "Wick this way", derivação algébrica}
+    \small
+    Para um correlator de dois pontos:
+
+    \begin{align*}
+        \mathbb{E} \left[ z^{(1)}_{i_1;\alpha_1} \, z^{(1)}_{i_2;\alpha_2} \right] &= \mathbb{E} \left[
+            \left( b^{(1)}_{i_1} + \sum_{j_1=1}^{n_0} W^{(1)}_{i_1 j_1} x_{j_1; \alpha_1} \right)
+            \left( b^{(1)}_{i_2} +\sum_{j_2=1}^{n_0} W^{(1)}_{i_2 j_2} x_{j_2; \alpha_2} \right)
+            \right]  \\ \Pause
+            %
+            &= \mathbb E [b_{i_1}b_{i_2}]  + \sum_{j_1}\mathbb E[b_{i_2}W_{i_1,j_1}]x_{j_1,\alpha_1} + \sum_{j_2}\mathbb E[b_{i_1}W_{i_2,j_2}]x_{j_2,\alpha_2}  \\
+            %
+            & \; + \mathbb E[(\sum_{j_1=1}^{n_0} W^{(1)}_{i_1 j_1} x_{j_1; \alpha_1})(\sum_{j_2=1}^{n_0} W^{(1)}_{i_2 j_2} x_{j_2; \alpha_2})] \Pause \\ 
+            %
+            &= \delta_{i_1 i_2}C_b^{(1)} + \sum_{j_1,j_2=1}^{n_0} \mathbb E[W_{i_1j_1}W_{i_2j_2}]x_{j,\alpha_1} x_{j,\alpha_2}  \Pause \\ 
+            %
+            &= \delta_{i_1 i_2} \left( C_b^{(1)} + C_W^{(1)} \frac{1}{n_0} \sum_{j=1}^{n_0} x_{j; \alpha_1} x_{j; \alpha_2} \right) 
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.1 - "Wick this way", derivação algébrica}
+
+    Definimos a seguinte expressão como a \textbf{métrica de primeira camada}:
+    $$
+    G_{\alpha_1\alpha_2}^{(1)} := C_b^{(1)} + C_W^{(1)} \frac{1}{n_0} \sum_{j=1}^{n_0} x_{j; \alpha_1} x_{j; \alpha_2}
+    $$ \pause
+
+    Note que é uma função de $x_{\alpha_1}, x_{\alpha_2}$. Assim, nossa igualdade acima se traduz como: \pause
+
+    $$
+    \mathbb{E} \left[ z^{(1)}_{i_1;\alpha_1} \, z^{(1)}_{i_2;\alpha_2} \right] = \delta_{i_1i_2} G_{\alpha_1\alpha_2}^{(1)}
+    $$
+
+\end{frame}
+
+\begin{frame}
+    Seguindo a mesma ideia:
+
+    \begin{align*}
+    \mathbb E[z^{(1)}_{i_1; \alpha_1} z^{(1)}_{i_2; \alpha_2} z^{(1)}_{i_3; \alpha_3} z^{(1)}_{i_4; \alpha_4}]
+    = \delta_{i_1 i_2} \delta_{i_3 i_4} G^{(1)}_{\alpha_1 \alpha_2} G^{(1)}_{\alpha_3 \alpha_4}
+    + \delta_{i_1 i_3} \delta_{i_2 i_4} G^{(1)}_{\alpha_1 \alpha_3} G^{(1)}_{\alpha_2 \alpha_4}\\
+    + \delta_{i_1 i_4} \delta_{i_2 i_3} G^{(1)}_{\alpha_1 \alpha_4} G^{(1)}_{\alpha_2 \alpha_3} \Pause \\
+    %
+    = \mathbb{E} \left[ z^{(1)}_{i_1; \alpha_1} z^{(1)}_{i_2; \alpha_2} \right]
+    \mathbb{E} \left[ z^{(1)}_{i_3; \alpha_3} z^{(1)}_{i_4; \alpha_4} \right] 
+    + \mathbb{E} \left[ z^{(1)}_{i_1; \alpha_1} z^{(1)}_{i_3; \alpha_3} \right]
+    \mathbb{E} \left[ z^{(1)}_{i_2; \alpha_2} z^{(1)}_{i_4; \alpha_4} \right] \\
+    + \mathbb{E} \left[ z^{(1)}_{i_1; \alpha_1} z^{(1)}_{i_4; \alpha_4} \right]
+    \mathbb{E} \left[ z^{(1)}_{i_2; \alpha_2} z^{(1)}_{i_3; \alpha_3} \right]
+    \end{align*} \pause
+
+    Lembrando de discussão anterior, isso significa que
+
+    $$
+    \mathbb E[z^{(1)}_{i_1; \alpha_1} z^{(1)}_{i_2; \alpha_2} z^{(1)}_{i_3; \alpha_3} z^{(1)}_{i_4; \alpha_4}]\big |_\text{connected} = 0
+    $$
+    de modo que a distribuição é Gaussiana. \pause
+
+    De forma similar, podemos verificar que todos os correlatores conexos de ordem mais alta zeram, e portanto, podem ser gerados por uma Gaussiana.
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.1 - "Wick this way", derivação algébrica}
+
+    Lembrando, uma distribuição Gaussiana multivariada $z$ de média $s$ e matriz de covariância $K$ pode ser escrita como
+
+    $$
+    p(z) = \frac{1}{\sqrt{|2\pi K|}} \exp\left[ - \frac 1 2 \sum_{\mu,\nu=1}^N (z-s)_\mu K  ^{\mu\nu}(z-s)_\nu \right] $$
+
+    $$
+    = \frac{1}{\sqrt{|2\pi K|}} \exp\left[ - \frac 1 2 (z-s)^T K^{-1} (z-s) \right]
+    $$
+
+    onde $K^{\mu\nu} = (K^{-1})_{\mu\nu}$.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.1 - "Wick this way", derivação algébrica}
+
+    Para escrever a distribuição de primeira camada, precisamos da inversa de  $\delta_{i_1i_2}G_{(1)}^{\alpha_1\alpha_2}$, para cada par de índices $i_1,i_2$, que satisfaça \pause
+
+    $$
+    \sum_{j=1}^{n_1} \sum_{\beta \in D} (\delta_{i_1 j} G^{\alpha_1 \beta}_{(1)})(\delta_{i_2 j} G_{\beta \alpha_2}^{(1)}) = \delta_{i_1i_2}\delta^{\alpha_1}_{\alpha_2}
+    $$
+    \pause
+
+    $G^{\alpha \beta}_{(1)}$ denota as entradas da matriz $(G^{(1)})^{-1}_{\alpha \beta} \in \mathbb R^{N_D}$, com as métricas $G^{(1)}_{\alpha\beta}$ para duas entradas ${x_\alpha}, {x_\beta}$, satisfazendo
+
+    $$
+    \sum_{\beta \in D} G^{\alpha_1 \beta}_{(1)}G_{\beta \alpha_2}^{(1)} = \delta^{\alpha_1}_{\alpha_2}
+    $$
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.1 - "Wich this way", derivação algébrica}
+
+    Podemos, então, escrever a distribuição $p(z^{(1)}|D)$ na forma:
+
+    $$
+    p(z^{(1)}|D) = \frac{1}{Z} e^{-S(z^{(1)})}
+    $$
+    onde \pause $S$ é a *ação quadrática*
+    $$
+    S(z^{(1)}) = \frac{1}{2} \sum_{i=1}^{n_1} \sum_{\alpha_1,\alpha_2 \in D} z^{(1)}_{i;\alpha_1} G^{\alpha_1 \alpha_2}_{(1)} z^{(1)}_{i;\alpha_2}
+    $$
+    \pause
+    $$
+    \left(=\sum_{i,j=1}^{n_1} \sum_{\alpha_1,\alpha_2 \in D} z^{(1)}_{i;\alpha_1} \delta_{ij} G^{\alpha_1 \alpha_2}_{(1)} z^{(1)}_{j;\alpha_2} \right)
+    $$
+    \pause
+    e $Z$ é a *função de partição*:
+    $$
+    Z = \int \left[ \prod_{i,\alpha} dz_{i,\alpha}^{(1)} \right] e^{-S(z^{(1)})}
+    $$
+\end{frame}
+
+\subsection{"Hubbard-Stratonovich this way": derivação algébria via ação}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{4.1 - Hubbard-Stratonovich}
+    
+    Como visto no capítulo anterior, podemos expressar a distribuição na forma
+
+    \footnotesize
+    $$
+    p(z \mid D) = \int \left[ \prod_j db_j \, p(b_j) \right] 
+    \left[ \prod_{j,k} dW_{jk} \, p(W_{jk}) \right] 
+    \prod_{j,\alpha} \delta \left( z_{j;\alpha} - b_i - \sum_j W_{jk} x_{j;\alpha} \right)
+    $$
+    \normalsize
+    suprimindo por hora os sobrescritos $(1)$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.1 - Hubbard-Stratonovich}
+
+    Por hipótese:
+    $$
+    p(b_j) = \frac{1}{\sqrt{2\pi C_b}} \exp(-\frac{b_j^2}{2C_b})
+    $$
+
+    $$
+    p(W_{jk}) = \frac{1}{\sqrt{2\pi C_W/n_0}} \exp(-\frac{n_0 W_{jk}^2}{2C_W})
+    $$
+
+\end{frame}
+
+\begin{frame}{<title>}
+
+    Vamos usar a **transformação de Hubbard-Stratonovich**. I.e., a representação integral do delta de Dirac:
+
+    $$
+    \delta(z-a) = \int \frac{d\Lambda}{2\pi}e^{i\Lambda (z-a)}
+    $$
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{<title>}
+
+    Obtemos:
+    \tiny
+    $$
+    p(z \mid D) = \int \left[ \prod_j \frac{db_j}{\sqrt{2\pi C_b}} \exp(-\frac{b_j^2}{2C_b}) \right] 
+    \left[ \prod_{j,k} \frac{dW_{jk}}{\sqrt{2\pi C_W/n_0}} \exp(-\frac{n_0 W_{jk}^2}{2C_W}) \right] 
+    \left[\prod_{j,\alpha}  \int \frac{d\Lambda}{2\pi}e^{i\Lambda (z-a)} \right]
+    $$
+
+    \pause
+
+    $$
+    = \int \left[ \prod_j \frac{db_i}{\sqrt{2\pi C_b}} \right]
+    \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right]
+    \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right]
+    $$
+
+    $$
+    \times \exp \left[
+    - \sum_j \frac{b_j^2}{2C_b}
+    - n_0 \sum_{jk} \frac{W_{jk}^2}{2C_W}
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} 
+    \left( z_{j;\alpha} - b_j - \sum_j W_{jk} x_{j;\alpha} \right)
+    \right] 
+    $$
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{<title>}
+
+    Completando quadrados:
+
+    $$
+    \sum_j \frac{b_j^2}{2C_b}
+    - n_0 \sum_{i,j} \frac{W_{jk}^2}{2C_W}
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} 
+    \left( z_{j;\alpha} - b_j - \sum_j W_{jk} x_{k;\alpha} \right)
+    $$
+
+    $$
+    = -\frac{1}{2C_b} \sum_j \left( b_j + i C_b \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
+    - \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 
+    $$
+
+    $$
+    - \frac{C_W}{2n_0} \sum_{j,k} \left( \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2
+    - \frac{C_b}{2} \sum_j \left( \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} 
+    $$
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{<title>}
+    \footnotesize
+    \begin{align*}
+    \int \left[ \prod_j \frac{db_j}{\sqrt{2\pi C_b}} \right]
+    \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right]
+    \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] \\
+% 
+    \times \exp \left[
+    - \sum_j \frac{b_j^2}{2C_b}
+    - n_0 \sum_{jk} \frac{W_{jk}^2}{2C_W}
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} 
+    \left( z_{j;\alpha} - b_j - \sum_j W_{jk} x_{j;\alpha} \right)
+    \right] \Pause\\
+% 
+    = \int \left[ \prod_j \frac{db_i}{\sqrt{2\pi C_b}} \right]
+    \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right]
+    \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] \\
+% 
+    \exp \left[ -\frac{1}{2C_b} \sum_j \left( b_j + i C_b \sum_\alpha \Lambda_{j}^{\alpha} \right)^2 \right]
+    \exp \left[- \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 \right]\\
+% 
+    \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \left( \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2
+    - \frac{C_b}{2} \sum_j \left( \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right]
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{<title>}
+    \footnotesize
+    \begin{gather*}
+    = \int \left[ \prod_j \frac{db_i}{\sqrt{2\pi C_b}} \right]
+    \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right]
+    \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] \\
+% 
+    \exp \left[ -\frac{1}{2C_b} \sum_j \left( b_j + i C_b \sum_\alpha \Lambda_{j}^{\alpha} \right)^2 \right]
+    \exp \left[- \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 \right] \\
+% 
+    \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \left( \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2
+    - \frac{C_b}{2} \sum_j \left( \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \Pause \\ 
+    %   
+    \times \textcolor{teal}{
+    = \int \left[ \prod_j \frac{db_i}{\sqrt{2\pi C_b}} \right] \exp \left[ -\frac{1}{2C_b} \sum_j \left( b_j + i C_b \sum_\alpha \Lambda_{j}^{\alpha} \right)^2 \right]
+    } \\
+% 
+    \times \textcolor{orange}{
+    \int \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right] \exp \left[- \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 \right] }\\
+% 
+    \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] 
+    \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \left( \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2
+    - \frac{C_b}{2} \sum_j \left( \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] 
+    \end{gather*}
+
+\end{frame}
+
+\begin{frame}{adsaskm}
+    Olhando bem, são integrais Gaussianas deslocadas por uma média:
+
+    \begin{align*}
+    \textcolor{teal}{\int \left[ \prod_j \frac{db_j}{\sqrt{2\pi C_b}} \right] \exp \left[ -\frac{1}{2C_b} \sum_j \left( b_j + i C_b \sum_\alpha \Lambda_{j}^{\alpha} \right)^2 \right]} \\
+    % 
+    = \prod_j\int \left[\frac{db_j}{\sqrt{2\pi C_b}} \exp\left(-\frac{(b_j-\mu_b)^2}{2C_b}\right)\right] 
+    \end{align*}
+
+    \normalsize
+
+    com a média $\mu_b = - i C_b \sum_\alpha \Lambda_{j}^{\alpha}$. Assim, cada integral dessa é igual a 1, e some da representação.
+
+    \vspace{1em}
+    \pause
+
+    De forma análoga, a integral envolvendo $\textcolor{orange}{W_{ij}}$ vira 1.
+\end{frame}
+
+\begin{frame}{awd}
+    Então...
+    \tiny
+    \begin{align*}
+    p(z \mid D) = \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] 
+    \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \left( \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2
+    - \frac{C_b}{2} \sum_j \left( \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
+% 
+    = \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] 
+    \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \sum_{\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} x_{k;\alpha_1} x_{k;\alpha_2} 
+    - \frac{C_b}{2} \sum_j \sum_{\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2}
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
+% 
+    = \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] 
+    \exp \left[- \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} \textcolor{teal}{\left(C_b + C_W \frac{1}{n_0}\sum_k x_{k;\alpha_1} x_{k;\alpha_2} \right)}
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
+% 
+    =  \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] 
+    \exp \left[- \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} \textcolor{teal}{G_{\alpha_1\alpha_2}}
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
+    \end{align*}
+\end{frame}
+
+
+\subsection{Ação Gaussiana em ação}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}
+    \frametitle{<title>}
+
+    \tiny
+
+    \begin{align*}
+        \mathbb{E} \left[ \sigma\left( z^{(1)}_{i_1;\alpha_1} \right) \sigma\left( z^{(1)}_{i_1;\alpha_2} \right) \right] \\
+        = \int \left[ \prod_{i=1}^{n_1} \prod_{\alpha \in D} \frac{dz_{i;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right] \Pause
+        % 
+        \times  \exp\left( -\frac{1}{2} \sum_{j=1}^{n_1} \sum_{\beta_1, \beta_2 \in D} G^{(1)}_{\beta_1 \beta_2} z_{j;\beta_1} z_{j;\beta_2} \right)
+        \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2}) \Pause \\ 
+        % 
+        = \left\{ \prod_{i \neq i_1} \int \left[ \prod_{\alpha \in D} \frac{dz_{i;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right] 
+        \exp \left[ -\frac{1}{2}\sum_{\beta_1, \beta_2 \in D} G^{(1)}_{\beta_1 \beta_2} z_{i;\beta_1} z_{i;\beta_2} \right] \right\}\Pause \\
+        % 
+        \times \int \left[ \prod_{\alpha \in D} \frac{dz_{i_1;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
+        \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_1;\beta_1} z_{i_1;\beta_2} \right)
+        \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2})\Pause \\
+        % 
+        =\{1\} \times \left[ \int \prod_{\alpha \in D} \frac{dz_{i_1\alpha}}{\sqrt{|2\pi G^{(1)}|}}\right] 
+        \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_1\beta_1} z_{i_1\beta_2} \right)
+        \sigma(z_{i_1\alpha_1}) \sigma(z_{i_1\alpha_2})\Pause \\
+        % 
+        := \langle \sigma(z_{i_1\alpha_1})\sigma(z_{i_1\alpha_2}) \rangle_{G^{(1)}}.
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}{ads}
+    Com a expressão do final, reintroduzimos a notação:
+    \tiny
+    $$
+    \left\langle F(z_{\alpha_1}, \ldots, z_{\alpha_m}) \right\rangle_g 
+    \equiv 
+    \displaystyle \int \left[\frac{\prod_{\alpha \in D} dz_\alpha}{\sqrt{|2\pi g|}} \right]
+    \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} g^{\beta_1 \beta_2} z_{\beta_1} z_{\beta_2} \right)
+    F(z_{\alpha_1}, \ldots, z_{\alpha_m})
+    $$
+    \normalsize
+    \pause
+    e denotamos ainda:
+
+    $$
+    \sigma_\alpha := \sigma(z_\alpha)
+    $$
+    \pause
+    Assim, podemos escrever
+
+    $$
+    \mathbb{E} \left[ \sigma\left( z^{(1)}_{i_1;\alpha_1} \right) \sigma\left( z^{(1)}_{i_1;\alpha_2} \right) \right] = \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \rangle_{G^{(1)}}
+    $$
+
+\end{frame}
+
+
+\begin{frame}
+    É possível ainda generalizar para correlatores de mais pontos. Para todas as saídas do mesmo neurônio $i_1$:
+    $$
+    \mathbb{E} \left[ \sigma( z^{(1)}_{i_1;\alpha_1} ) \sigma( z^{(1)}_{i_1;\alpha_2})\sigma( z^{(1)}_{i_1;\alpha_3}) \sigma( z^{(1)}_{i_1;\alpha_4}) \right] = \langle \sigma_{\alpha_1} \sigma_{\alpha_2}\sigma_{\alpha_3}\sigma_{\alpha_4} \rangle_{G^{(1)}}
+    $$
+    fazendo as exatas mesmas etapas.
+\end{frame}
+
+\begin{frame}{asdas}
+    Para $i_1\neq i_2$
+    \tiny
+    $$
+    \mathbb{E} \left[
+    \sigma\left( z^{(1)}_{i_1;\alpha_1} \right)
+    \sigma\left( z^{(1)}_{i_1;\alpha_2} \right)
+    \sigma\left( z^{(1)}_{i_2;\alpha_3} \right)
+    \sigma\left( z^{(1)}_{i_2;\alpha_4} \right)
+    \right]
+    $$
+
+    $$
+    = \left\{ 
+    \prod_{i \notin \{i_1, i_2\}} 
+    \displaystyle \int \left[ \prod_{\alpha \in D} \frac{dz_{i;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
+    \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i;\beta_1} z_{i;\beta_2} \right)
+    \right\}
+    $$
+
+    $$
+    \times \displaystyle \int \left[ \frac{\prod_{\alpha \in D} dz_{i_1;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
+    \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_1;\beta_1} z_{i_1;\beta_2} \right)
+    \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2})
+    $$
+
+    $$
+    \times \displaystyle \int \left[ \frac{\prod_{\alpha \in D} dz_{i_2;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
+    \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_2;\beta_1} z_{i_2;\beta_2} \right)
+    \sigma(z_{i_2;\alpha_3}) \sigma(z_{i_2;\alpha_4})
+    $$
+
+    $$
+    = \left\langle \sigma(z_{\alpha_1}) \sigma(z_{\alpha_2}) \right\rangle_{G^{(1)}}
+    \left\langle \sigma(z_{\alpha_3}) \sigma(z_{\alpha_4}) \right\rangle_{G^{(1)}}
+    $$
+
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{asdasd}
+
+    I.e.:
+    \tiny
+    $$
+    \mathbb{E} \left[
+    \sigma\left( z^{(1)}_{i_1;\alpha_1} \right)
+    \sigma\left( z^{(1)}_{i_1;\alpha_2} \right)
+    \sigma\left( z^{(1)}_{i_2;\alpha_3} \right)
+    \sigma\left( z^{(1)}_{i_2;\alpha_4} \right)
+    \right]
+    = \left\langle \sigma(z_{\alpha_1}) \sigma(z_{\alpha_2}) \right\rangle_{G^{(1)}}
+    \left\langle \sigma(z_{\alpha_3}) \sigma(z_{\alpha_4}) \right\rangle_{G^{(1)}}
+    $$
+    \normalsize
+    Isso ilustra a independência entre as distribuições de neurônios diferentes.
+
+\end{frame}
+
+\section{Seção 4.2 - 2ª Camada: A gênese da não-gaussianidade}
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Referências}
+\vspace{-2em}
+\scriptsize
+\bibliographystyle{abntex2-alf}
+\bibliography{refs.bib}    
+\end{frame}
+
+\begin{frame}
+
+\begin{center}
+\Large Obrigado!
+\end{center}
+
+\vspace{1em}
+Contato: riffel.felipe@grad.ufsc.br 
+
+\vspace{1em}
+
+Repositório com os materiais da apresentação: https://github.com/felipekriffel/Mestrado
+    
+\end{frame}
+
+\end{document}
+
