@@ -238,7 +238,7 @@ Capítulo 4: RG-flow de pré-ativações
     \frametitle{4.1 - "Wich this way", derivação algébrica}
 
     Podemos, então, escrever a distribuição $p(z^{(1)}|D)$ na forma:
-
+    \small
     $$
     p(z^{(1)}|D) = \frac{1}{Z} e^{-S(z^{(1)})}
     $$
@@ -253,7 +253,7 @@ Capítulo 4: RG-flow de pré-ativações
     \pause
     e $Z$ é a *função de partição*:
     $$
-    Z = \int \left[ \prod_{i,\alpha} dz_{i,\alpha}^{(1)} \right] e^{-S(z^{(1)})}
+    Z = \int \left[ \prod_{i,\alpha} dz_{i,\alpha}^{(1)} \right] e^{-S(z^{(1)})} = |2 \pi G^{(1)}|^{\frac{n_1}{2}}
     $$
 \end{frame}
 
@@ -290,7 +290,7 @@ Capítulo 4: RG-flow de pré-ativações
 
 \end{frame}
 
-\begin{frame}{<title>}
+\begin{frame}{4.1 - Hubbard-Stratonovich}
 
     Vamos usar a **transformação de Hubbard-Stratonovich**. I.e., a representação integral do delta de Dirac:
 
@@ -301,7 +301,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{<title>}
+    \frametitle{4.1 - Hubbard-Stratonovich}
 
     Obtemos:
     \tiny
@@ -331,7 +331,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{<title>}
+    \frametitle{4.1 - Hubbard-Stratonovich}
 
     Completando quadrados:
 
@@ -356,7 +356,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{<title>}
+    \frametitle{4.1 - Hubbard-Stratonovich}
     \footnotesize
     \begin{align*}
     \int \left[ \prod_j \frac{db_j}{\sqrt{2\pi C_b}} \right]
@@ -385,7 +385,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{<title>}
+    \frametitle{4.1 - Hubbard-Stratonovich}
     \footnotesize
     \begin{gather*}
     = \int \left[ \prod_j \frac{db_i}{\sqrt{2\pi C_b}} \right]
@@ -414,7 +414,7 @@ Capítulo 4: RG-flow de pré-ativações
 
 \end{frame}
 
-\begin{frame}{adsaskm}
+\begin{frame}{4.1 - Hubbard-Stratonovich}
     Olhando bem, são integrais Gaussianas deslocadas por uma média:
 
     \begin{align*}
@@ -433,7 +433,7 @@ Capítulo 4: RG-flow de pré-ativações
     De forma análoga, a integral envolvendo $\textcolor{orange}{W_{ij}}$ vira 1.
 \end{frame}
 
-\begin{frame}{awd}
+\begin{frame}{4.1 - Hubbard-Stratonovich}
     Então...
     \tiny
     \begin{align*}
@@ -457,6 +457,51 @@ Capítulo 4: RG-flow de pré-ativações
     \end{align*}
 \end{frame}
 
+
+\begin{frame}{4.1 - Hubbard-Stratonovich}
+    Completando quadrados mais uma vez na exponencial, retomando o sobrescrito $(1)$:
+    \tiny
+    \begin{gather*}
+    - \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} \textcolor{teal}{G_{\alpha_1\alpha_2}}
+    + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha}  \\
+    = - \frac{1}{2} \sum_{i, \alpha_1, \alpha_2} \left[
+        G^{(1)}_{\alpha_1 \alpha_2} \left(
+        \Lambda_{\alpha_1 i} - i \sum_{\beta_1} G_{(1)}^{\alpha_1 \beta_1} z^{(1)}_{i; \beta_1}
+        \right)
+        \left(
+        \Lambda_{\alpha_2 i} - i \sum_{\beta_2} G_{(1)}^{\alpha_2 \beta_2} z^{(1)}_{i; \beta_2}
+        \right) 
+        + G_{(1)}^{\alpha_1 \alpha_2} z^{(1)}_{i; \alpha_1} z^{(1)}_{i; \alpha_2}
+        \right]
+    \end{gather*}
+\end{frame}
+
+\begin{frame}{4.1 - Hubbard-Stratonovich}
+    Assim,
+    \tiny
+    \begin{gather*}
+        p(z \mid D) =  \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] 
+        \exp \left[- \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} G_{\alpha_1\alpha_2}
+        + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
+        = \textcolor{orange}{\int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2} 
+            G^{(1)}_{\alpha_1 \alpha_2} \left(
+            \Lambda_{\alpha_1 j} - i \sum_{\beta_1} G_{(1)}^{\alpha_1 \beta_1} z^{(1)}_{j; \beta_1}
+            \right)
+            \left(
+            \Lambda_{\alpha_2 j} - i \sum_{\beta_2} G_{(1)}^{\alpha_2 \beta_2} z^{(1)}_{j; \beta_2}
+            \right) \right]} \\
+            \times \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2} G_{(1)}^{\alpha_1 \alpha_2} z^{(1)}_{j; \alpha_1} z^{(1)}_{j; \alpha_2}
+            \right] \\
+            = \textcolor{orange}{\frac{1}{|2\pi G^{(1)}|^{\frac{n_1}{2}}}} \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2} G_{(1)}^{\alpha_1 \alpha_2} z^{(1)}_{j; \alpha_1} z^{(1)}_{j; \alpha_2}
+            \right]
+    \end{gather*}
+
+    \normalsize
+
+    Ou seja, o mesmo termo que encontramos na seção "Wick this way".
+
+
+\end{frame}
 
 \subsection{Ação Gaussiana em ação}
 \begin{frame}
