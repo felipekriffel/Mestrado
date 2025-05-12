@@ -116,13 +116,13 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 
-\subsection{"Wick this way", derivação algébrica}
+\subsection{``Wick this way'', derivação algébrica}
 \begin{frame}
 \tableofcontents[currentsubsection]
 \end{frame}
 
 \begin{frame}
-    \frametitle{4.1 - "Wick this way", derivação algébrica}
+    \frametitle{4.1 - ``Wick this way'', derivação algébrica}
 
     Vemos primeiramente que:
 
@@ -137,7 +137,7 @@ Capítulo 4: RG-flow de pré-ativações
 
 \end{frame}
 
-\begin{frame}{4.1 - "Wick this way", derivação algébrica}
+\begin{frame}{4.1 - ``Wick this way'', derivação algébrica}
     \small
     Para um correlator de dois pontos:
 
@@ -158,7 +158,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{4.1 - "Wick this way", derivação algébrica}
+    \frametitle{4.1 - ``Wick this way'', derivação algébrica}
 
     Definimos a seguinte expressão como a \textbf{métrica de primeira camada}:
     $$
@@ -173,7 +173,8 @@ Capítulo 4: RG-flow de pré-ativações
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}{4.1 - ``Wick this way'', derivação algébrica}
+    \small
     Seguindo a mesma ideia:
 
     \begin{align*}
@@ -201,7 +202,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{4.1 - "Wick this way", derivação algébrica}
+    \frametitle{4.1 - ``Wick this way'', derivação algébrica}
 
     Lembrando, uma distribuição Gaussiana multivariada $z$ de média $s$ e matriz de covariância $K$ pode ser escrita como
 
@@ -217,7 +218,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{4.1 - "Wick this way", derivação algébrica}
+    \frametitle{4.1 - ``Wick this way'', derivação algébrica}
 
     Para escrever a distribuição de primeira camada, precisamos da inversa de  $\delta_{i_1i_2}G_{(1)}^{\alpha_1\alpha_2}$, para cada par de índices $i_1,i_2$, que satisfaça \pause
 
@@ -235,7 +236,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{4.1 - "Wich this way", derivação algébrica}
+    \frametitle{4.1 - ``Wick this way'', derivação algébrica}
 
     Podemos, então, escrever a distribuição $p(z^{(1)}|D)$ na forma:
     \small
@@ -257,7 +258,7 @@ Capítulo 4: RG-flow de pré-ativações
     $$
 \end{frame}
 
-\subsection{"Hubbard-Stratonovich this way": derivação algébria via ação}
+\subsection{"Hubbard-Stratonovich this way'': derivação algébria via ação}
 \begin{frame}
 \tableofcontents[currentsubsection]
 \end{frame}
@@ -358,10 +359,11 @@ Capítulo 4: RG-flow de pré-ativações
 \begin{frame}
     \frametitle{4.1 - Hubbard-Stratonovich}
     \footnotesize
+    Voltando à exponencial, 
     \begin{align*}
     \int \left[ \prod_j \frac{db_j}{\sqrt{2\pi C_b}} \right]
-    \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right]
-    \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] \\
+    \left[ \prod_{j,k} \frac{dW_{jk}}{\sqrt{2\pi C_W / n_0}} \right]
+    \left[ \prod_{j,\alpha} \frac{d\Lambda_{j}^{\alpha}}{2\pi} \right] \\
 % 
     \times \exp \left[
     - \sum_j \frac{b_j^2}{2C_b}
@@ -371,8 +373,8 @@ Capítulo 4: RG-flow de pré-ativações
     \right] \Pause\\
 % 
     = \int \left[ \prod_j \frac{db_i}{\sqrt{2\pi C_b}} \right]
-    \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right]
-    \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] \\
+    \left[ \prod_{j,k} \frac{dW_{jk}}{\sqrt{2\pi C_W / n_0}} \right]
+    \left[ \prod_{j,\alpha} \frac{d\Lambda_{j}^{\alpha}}{2\pi} \right] \\
 % 
     \exp \left[ -\frac{1}{2C_b} \sum_j \left( b_j + i C_b \sum_\alpha \Lambda_{j}^{\alpha} \right)^2 \right]
     \exp \left[- \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 \right]\\
@@ -386,11 +388,11 @@ Capítulo 4: RG-flow de pré-ativações
 
 \begin{frame}
     \frametitle{4.1 - Hubbard-Stratonovich}
-    \footnotesize
+    \tiny
     \begin{gather*}
     = \int \left[ \prod_j \frac{db_i}{\sqrt{2\pi C_b}} \right]
-    \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right]
-    \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] \\
+    \left[ \prod_{j,k} \frac{dW_{jk}}{\sqrt{2\pi C_W / n_0}} \right]
+    \left[ \prod_{j,\alpha} \frac{d\Lambda_{j}^{\alpha}}{2\pi} \right] \\
 % 
     \exp \left[ -\frac{1}{2C_b} \sum_j \left( b_j + i C_b \sum_\alpha \Lambda_{j}^{\alpha} \right)^2 \right]
     \exp \left[- \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 \right] \\
@@ -404,9 +406,9 @@ Capítulo 4: RG-flow de pré-ativações
     } \\
 % 
     \times \textcolor{orange}{
-    \int \left[ \prod_{i,j} \frac{dW_{ij}}{\sqrt{2\pi C_W / n_0}} \right] \exp \left[- \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 \right] }\\
+    \int \left[ \prod_{j,k} \frac{dW_{jk}}{\sqrt{2\pi C_W / n_0}} \right] \exp \left[- \frac{n_0}{2C_W} \sum_{j,k} \left( W_{jk} + i \frac{C_W}{n_0} \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2 \right] }\\
 % 
-    \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] 
+    \int \left[ \prod_{j,\alpha} \frac{d\Lambda_{j}^{\alpha}}{2\pi} \right] 
     \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \left( \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2
     - \frac{C_b}{2} \sum_j \left( \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
     + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] 
@@ -430,28 +432,28 @@ Capítulo 4: RG-flow de pré-ativações
     \vspace{1em}
     \pause
 
-    De forma análoga, a integral envolvendo $\textcolor{orange}{W_{ij}}$ vira 1.
+    De forma análoga, a integral envolvendo $\textcolor{orange}{W_{jk}}$ vira 1.
 \end{frame}
 
 \begin{frame}{4.1 - Hubbard-Stratonovich}
     Então...
     \tiny
     \begin{align*}
-    p(z \mid D) = \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] 
+    p(z \mid D) = \int \left[ \prod_{j,\alpha} \frac{d\Lambda_{j}^{\alpha}}{2\pi} \right] 
     \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \left( \sum_\alpha \Lambda_{j}^{\alpha} x_{k;\alpha} \right)^2
     - \frac{C_b}{2} \sum_j \left( \sum_\alpha \Lambda_{j}^{\alpha} \right)^2
     + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
 % 
-    = \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i}^{\alpha}}{2\pi} \right] 
+    = \int \left[ \prod_{j,\alpha} \frac{d\Lambda_{j}^{\alpha}}{2\pi} \right] 
     \exp \left[- \frac{C_W}{2n_0} \sum_{j,k} \sum_{\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} x_{k;\alpha_1} x_{k;\alpha_2} 
     - \frac{C_b}{2} \sum_j \sum_{\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2}
     + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
 % 
-    = \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] 
+    = \int \left[ \prod_{j,\alpha} \frac{d\Lambda_{j\alpha}}{2\pi} \right] 
     \exp \left[- \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} \textcolor{teal}{\left(C_b + C_W \frac{1}{n_0}\sum_k x_{k;\alpha_1} x_{k;\alpha_2} \right)}
     + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
 % 
-    =  \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] 
+    =  \int \left[ \prod_{j,\alpha} \frac{d\Lambda_{j\alpha}}{2\pi} \right] 
     \exp \left[- \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} \textcolor{teal}{G_{\alpha_1\alpha_2}}
     + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
     \end{align*}
@@ -464,14 +466,14 @@ Capítulo 4: RG-flow de pré-ativações
     \begin{gather*}
     - \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} \textcolor{teal}{G_{\alpha_1\alpha_2}}
     + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha}  \\
-    = - \frac{1}{2} \sum_{i, \alpha_1, \alpha_2} \left[
+    = - \frac{1}{2} \sum_{j, \alpha_1, \alpha_2} \left[
         G^{(1)}_{\alpha_1 \alpha_2} \left(
-        \Lambda_{\alpha_1 i} - i \sum_{\beta_1} G_{(1)}^{\alpha_1 \beta_1} z^{(1)}_{i; \beta_1}
+        \Lambda_{\alpha_1 j} - i \sum_{\beta_1} G_{(1)}^{\alpha_1 \beta_1} z^{(1)}_{j; \beta_1}
         \right)
         \left(
-        \Lambda_{\alpha_2 i} - i \sum_{\beta_2} G_{(1)}^{\alpha_2 \beta_2} z^{(1)}_{i; \beta_2}
+        \Lambda_{\alpha_2 j} - i \sum_{\beta_2} G_{(1)}^{\alpha_2 \beta_2} z^{(1)}_{j; \beta_2}
         \right) 
-        + G_{(1)}^{\alpha_1 \alpha_2} z^{(1)}_{i; \alpha_1} z^{(1)}_{i; \alpha_2}
+        + G_{(1)}^{\alpha_1 \alpha_2} z^{(1)}_{j; \alpha_1} z^{(1)}_{j; \alpha_2}
         \right]
     \end{gather*}
 \end{frame}
@@ -480,10 +482,10 @@ Capítulo 4: RG-flow de pré-ativações
     Assim,
     \tiny
     \begin{gather*}
-        p(z \mid D) =  \int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] 
+        p(z \mid D) =  \int \left[ \prod_{j,\alpha} \frac{d\Lambda_{j\alpha}}{2\pi} \right] 
         \exp \left[- \frac{1}{2} \sum_{j,\alpha_1\alpha_2} \Lambda_{j}^{\alpha_1}\Lambda_{j}^{\alpha_2} G_{\alpha_1\alpha_2}
         + i \sum_{j,\alpha} \Lambda_{j}^{\alpha} z_{j;\alpha} \right] \\
-        = \textcolor{orange}{\int \left[ \prod_{i,\alpha} \frac{d\Lambda_{i\alpha}}{2\pi} \right] \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2} 
+        = \textcolor{orange}{\int \left[ \prod_{j,\alpha} \frac{d\Lambda_{j\alpha}}{2\pi} \right] \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2} 
             G^{(1)}_{\alpha_1 \alpha_2} \left(
             \Lambda_{\alpha_1 j} - i \sum_{\beta_1} G_{(1)}^{\alpha_1 \beta_1} z^{(1)}_{j; \beta_1}
             \right)
@@ -498,8 +500,7 @@ Capítulo 4: RG-flow de pré-ativações
 
     \normalsize
 
-    Ou seja, o mesmo termo que encontramos na seção "Wick this way".
-
+    Ou seja, o mesmo termo que encontramos na seção ''Wick this way''.
 
 \end{frame}
 
@@ -509,7 +510,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{<title>}
+    \frametitle{4.1 - Ação Gaussiana em ação}
 
     \tiny
 
@@ -536,7 +537,7 @@ Capítulo 4: RG-flow de pré-ativações
 
 \end{frame}
 
-\begin{frame}{ads}
+\begin{frame}{4.1 - Ação Gaussiana em ação}
     Com a expressão do final, reintroduzimos a notação:
     \tiny
     $$
@@ -563,7 +564,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}{4.1 - Ação Gaussiana em ação}
     É possível ainda generalizar para correlatores de mais pontos. Para todas as saídas do mesmo neurônio $i_1$:
     $$
     \mathbb{E} \left[ \sigma( z^{(1)}_{i_1;\alpha_1} ) \sigma( z^{(1)}_{i_1;\alpha_2})\sigma( z^{(1)}_{i_1;\alpha_3}) \sigma( z^{(1)}_{i_1;\alpha_4}) \right] = \langle \sigma_{\alpha_1} \sigma_{\alpha_2}\sigma_{\alpha_3}\sigma_{\alpha_4} \rangle_{G^{(1)}}
@@ -571,7 +572,7 @@ Capítulo 4: RG-flow de pré-ativações
     fazendo as exatas mesmas etapas.
 \end{frame}
 
-\begin{frame}{asdas}
+\begin{frame}{4.1 - Ação Gaussiana em ação}
     Para $i_1\neq i_2$
     \tiny
     $$
@@ -612,7 +613,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}
-    \frametitle{asdasd}
+    \frametitle{4.1 - Ação Gaussiana em ação}
 
     I.e.:
     \tiny
@@ -631,10 +632,10 @@ Capítulo 4: RG-flow de pré-ativações
 
 \end{frame}
 
-\section{Seção 4.2 - 2ª Camada: A gênese da não-gaussianidade}
-\begin{frame}
-\tableofcontents[currentsection]
-\end{frame}
+% \section{Seção 4.2 - 2ª Camada: A gênese da não-gaussianidade}
+% \begin{frame}
+% \tableofcontents[currentsection]
+% \end{frame}
 
 
 \begin{frame}
