@@ -646,11 +646,88 @@ Capítulo 4: RG-flow de pré-ativações
 
 \end{frame}
 
-% \section{Seção 4.2 - 2ª Camada: A gênese da não-gaussianidade}
-% \begin{frame}
-% \tableofcontents[currentsection]
-% \end{frame}
+\section{Seção 4.2 - 2ª Camada: A gênese da não-gaussianidade}
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
 
+\subsection{Introdução}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{4.2 - Introdução}
+    Lembrando, denotamos:
+    \begin{equation}
+        \sigma_{i;\alpha}^{(1)} := \sigma(z_{i;\alpha}^{(1)}).
+    \end{equation}
+
+    \pause
+    As entradas da segunda camada são dadas por:
+    \vspace{1em}
+    
+    \begin{equation}
+        z^{(2)}_{i,\alpha} \equiv z^{(2)}_i(x_\alpha) = b^{(2)}_i + \sum_{j=1}^{n_1} W^{(2)}_{ij} \, \sigma_{j;\alpha}^{(1)}, \quad \text{para } i = 1, \dots, n_2.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{4.2 - Introdução}
+    A distribuição conjunta da segunda e primeira camada pode ser dada por::
+    \begin{equation}
+        p(z^{(2)},z^{(1)} \mid D) = p(z^{(2)} \mid z^{(1)})p(z^{(1)} \mid D)
+    \end{equation}
+
+    \vspace{1em}
+    1º: $p(z^{(1)} \mid D)$ - Seção 4.1; \pause
+
+    \vspace{1em}
+    2º: Como definido na seção 2:
+    \begin{equation}
+        p(z^{(2)} \mid z^{(1)}) = \int \left[\prod_i db_i^{(2)} p (b_i^{(2)}) \right] 
+        \left[\prod_{i,j} dW_{ij}^{(2)} p (W_{ij}^{(2)}) \right] 
+        \prod_{i,\alpha} \delta{z^{(2)}_i(x_\alpha) = b^{(2)}_i + \sum_{j=1}^{n_1} W^{(2)}_{ij} \, \sigma_{j;\alpha}^{(1)}}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{4.2 - Introdução}
+    Ainda, podemos calcular as probabilidades marginalizadas como:
+
+    \begin{equation}
+        p(z^{(2)} \mid D) = \int \left[\prod_{i;\alpha} z^{(1)} p(z^{(1)} \mid z^{(2)})\right]
+    \end{equation}
+
+\end{frame}
+
+\subsection{Distribuição condicional de segunda camada}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{4.2 - Dist. condicional de 2ª camada} 
+    Podemos calcular $p(z^{2} \mid z^{1})$ da exata mesma forma que $p(z^{(1)} \mid D)$
+    \begin{itemize}
+        \item índices $1 \to 2$; \pause
+        \item entradas $x_{j;\alpha} \to \sigma_{j;\alpha}^{(1)}$. \pause
+    \end{itemize}
+
+    Desse modo, a probabilidade fica:
+    \begin{equation}
+        p(z^{(2)} \mid z^{(1)}) = \frac{1}{|2\pi \hat G^{(2)}|^{\frac{n_2}{2}}} \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2}^{n_2} \hat G_{(2)}^{\alpha_1 \alpha_2} z^{(2)}_{j; \alpha_1} z^{(2)}_{j; \alpha_2}\right]
+    \end{equation} 
+    \pause
+    onde, definimos a \textbf{métrica \textit{estocástica} de segunda camada}.
+    \begin{equation}
+        \hat G_{\alpha_1\alpha_2}^{(2)} := C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} x_{j; \alpha_1} x_{j; \alpha_2}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{<title>}
+    Importante ressaltar que 
+    \begin{equation}
+        \hat G_{\alpha_1\alpha_2}^{(2)} := C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} x_{j; \alpha_1} x_{j; \alpha_2}
+    \end{equation}
+    
+\end{frame}
 
 \begin{frame}
 \frametitle{Referências}
