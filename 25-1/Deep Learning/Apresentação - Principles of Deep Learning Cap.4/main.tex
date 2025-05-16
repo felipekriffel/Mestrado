@@ -682,10 +682,11 @@ Capítulo 4: RG-flow de pré-ativações
 
     \vspace{1em}
     2º: Como definido na seção 2:
+    \tiny
     \begin{equation}
         p(z^{(2)} \mid z^{(1)}) = \int \left[\prod_i db_i^{(2)} p (b_i^{(2)}) \right] 
         \left[\prod_{i,j} dW_{ij}^{(2)} p (W_{ij}^{(2)}) \right] 
-        \prod_{i,\alpha} \delta{z^{(2)}_i(x_\alpha) = b^{(2)}_i + \sum_{j=1}^{n_1} W^{(2)}_{ij} \, \sigma_{j;\alpha}^{(1)}}
+        \prod_{i,\alpha} \delta(z^{(2)}_i(x_\alpha) - b^{(2)}_i - \sum_{j=1}^{n_1} W^{(2)}_{ij} \, \sigma_{j;\alpha}^{(1)})
     \end{equation}
 \end{frame}
 
@@ -704,7 +705,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}{4.2 - Dist. condicional de 2ª camada} 
-    Podemos calcular $p(z^{2} \mid z^{1})$ da exata mesma forma que $p(z^{(1)} \mid D)$
+    Podemos calcular $p(z^{2} \mid z^{1})$ da exata mesma forma que $p(z^{(1)} \mid D)$: \pause
     \begin{itemize}
         \item índices $1 \to 2$; \pause
         \item entradas $x_{j;\alpha} \to \sigma_{j;\alpha}^{(1)}$. \pause
@@ -712,21 +713,163 @@ Capítulo 4: RG-flow de pré-ativações
 
     Desse modo, a probabilidade fica:
     \begin{equation}
-        p(z^{(2)} \mid z^{(1)}) = \frac{1}{|2\pi \hat G^{(2)}|^{\frac{n_2}{2}}} \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2}^{n_2} \hat G_{(2)}^{\alpha_1 \alpha_2} z^{(2)}_{j; \alpha_1} z^{(2)}_{j; \alpha_2}\right]
+        p(z^{(2)} \mid z^{(1)}) = \frac{1}{|2\pi \widehat G^{(2)}|^{\frac{n_2}{2}}} \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2}^{n_2} \widehat G_{(2)}^{\alpha_1 \alpha_2} z^{(2)}_{j; \alpha_1} z^{(2)}_{j; \alpha_2}\right]
     \end{equation} 
     \pause
-    onde, definimos a \textbf{métrica \textit{estocástica} de segunda camada}.
+    onde definimos a \textbf{métrica \textit{estocástica} de segunda camada}:
     \begin{equation}
-        \hat G_{\alpha_1\alpha_2}^{(2)} := C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} x_{j; \alpha_1} x_{j; \alpha_2}
+        \widehat G_{\alpha_1\alpha_2}^{(2)} := C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} \sigma_{j; \alpha_1} \sigma_{j; \alpha_2}
     \end{equation}
 \end{frame}
 
-\begin{frame}{<title>}
-    Importante ressaltar que 
+\begin{frame}{4.2 - Dist. condicional de 2ª camada}
+    Importante ressaltar que a variável $\widehat G^{(2)}$ é \textit{estocástica}: 
     \begin{equation}
-        \hat G_{\alpha_1\alpha_2}^{(2)} := C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} x_{j; \alpha_1} x_{j; \alpha_2}
+        \widehat G_{\alpha_1\alpha_2}^{(2)} := C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} \sigma_{j; \alpha_1} \sigma_{j; \alpha_2}
     \end{equation}
+    pois depende da variável aleatória $\sigma^{(1)} = \sigma(z^{(1)})$.
+\end{frame}
+
+\begin{frame}{4.2 - Dist. condicional de 2ª camada}
+    Podemos então calcular seu valor esperado:
+    \begin{align*}
+        \mathbb E [\widehat G^{(2)_{\alpha_1 \alpha_2}}] &= C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} \mathbb E[\sigma_{j; \alpha_1} \sigma_{j; \alpha_2}] \Pause \\ 
+        &= C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} \langle \sigma_{j; \alpha_1} \sigma_{j; \alpha_2} \rangle_{G^{(1)}} \Pause \\ 
+        &:= G^{(2)}_{\alpha_1 \alpha_2}.
+    \end{align*} 
+    Chamamos o valor $G^{(2)}_{\alpha_1 \alpha_2}$ de \textbf{métrica média de 2ª camada.}
+\end{frame}
+
+\begin{frame}{4.2 - Dist. condicional de 2ª camada}
+    Definimos ainda \textbf{flutuação de 2ª camada}:
+    \begin{align*}
+        \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} &:= \widehat G^{(2)}_{\alpha_1 \alpha_2} - G^{(2)}_{\alpha_1 \alpha_2} \Pause \\
+        &= C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1}(\sigma^{(1)}_{j;\alpha_1}\sigma^{(1)}_{j;\alpha_2} - \langle \sigma_{\alpha_1}\sigma_{\alpha_2}\rangle_{G^{(1)}})
+    \end{align*}
+
+    \pause
     
+    Note que por construção, $\widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} $ tem média 0 sobre a primeira camada de ativações:
+    \begin{equation*} 
+        \mathbb E[\widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} ] = \mathbb E[\widehat G^{(2)}_{\alpha_1 \alpha_2}] - \mathbb E[ \mathbb E [\widehat G^{(2)}_{\alpha_1 \alpha_2}]] = 0
+    \end{equation*}
+\end{frame}
+
+\begin{frame}{4.2 - Dist. condicional de 2ª camada}
+    \scriptsize
+    Estamos interessados no correlator de 2 pontos de $\widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2}$:
+    \begin{align*}
+        &\mathbb{E}\left[ \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} \widehat{\Delta G}^{(2)}_{\alpha_3 \alpha_4} \right] \Pause \\
+        &= \left( \frac{C^{(2)}_W}{n_1} \right)^2 \sum_{j,k=1}^{n_1} 
+        \mathbb{E} \left[ 
+        \left( \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} - \mathbb{E}[\sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2}] \right)
+        \left( \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4} - \mathbb{E}[\sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}] \right)
+        \right] \Pause
+    \end{align*}
+    Temos:
+    \begin{align*}
+        &\mathbb{E} \left[ 
+        \left( \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} - \mathbb{E}[\sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2}] \right)
+        \left( \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4} - \mathbb{E}[\sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}] \right)
+        \right] \Pause \\
+        &=\mathbb{E} \left[\sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4} \right] 
+        % %
+        - \mathbb E\left[ \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}\right] \mathbb{E}[\sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2}] \\
+        % %    
+        & \;\; -\mathbb E[\sigma^{(1)}_{j;\alpha_3} \sigma^{(1)}_{j;\alpha_4}] \mathbb{E}[\sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}] 
+        % %
+        + \mathbb E[\sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2}] \mathbb E[\sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}]
+        \Pause \\
+        & = \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \sigma^{(1)}_{j;\alpha_3} \sigma^{(1)}_{j;\alpha_4} \right]
+        - \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \right]
+        \mathbb{E}\left[ \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}\right]
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.2 - Dist. condicional de 2ª camada}
+
+    Note que, para $j\neq k$,
+    \footnotesize
+    \begin{equation*}
+        \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4} \right] = \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2}\right] \left[\sigma^{(1)}_{j;\alpha_3} \sigma^{(1)}_{j;\alpha_4} \right]
+    \end{equation*}
+
+    \pause
+    Com isso,
+    \tiny 
+    \begin{align*}
+        &\left( \frac{C^{(2)}_W}{n_1} \right)^2 \sum_{j,k=1}^{n_1} 
+        \mathbb{E} \left[ 
+        \left( \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} - \mathbb{E}[\sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2}] \right)
+        \left( \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4} - \mathbb{E}[\sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}] \right)
+        \right] \Pause \\
+        &= \left( \frac{C^{(2)}_W}{n_1} \right)^2 \sum_{j,k=1}^{n_1} 
+        \left\{
+        \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4} \right]
+        - \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \right]
+        \mathbb{E}\left[ \sigma^{(1)}_{k;\alpha_3} \sigma^{(1)}_{k;\alpha_4}\right]\right\}\Pause \\
+        &= \left( \frac{C^{(2)}_W}{n_1} \right)^2 \sum_{j=1}^{n_1} 
+        \left\{
+        \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \sigma^{(1)}_{j;\alpha_3} \sigma^{(1)}_{j;\alpha_4} \right]
+        - \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \right]
+        \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_3} \sigma^{(1)}_{j;\alpha_4}\right]
+        \right\} \Pause \\
+        &= \left( \frac{C^{(2)}_W}{n_1} \right)^2 \sum_{j=1}^{n_1} 
+        \left\{
+        \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \sigma^{(1)}_{j;\alpha_3} \sigma^{(1)}_{j;\alpha_4} \right]
+        - \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_1} \sigma^{(1)}_{j;\alpha_2} \right]
+        \mathbb{E}\left[ \sigma^{(1)}_{j;\alpha_3} \sigma^{(1)}_{j;\alpha_4}\right]
+        \right\}\Pause \\
+        &= \left( \frac{C^{(2)}_W}{n_1} \right)^2 \sum_{j=1}^{n_1} 
+        \left\{
+            \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \sigma_{\alpha_3} \sigma_{\alpha_4} \rangle_{G^{(1)}} 
+            - \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \rangle_{G^{(1)}}
+              \langle \sigma_{\alpha_3} \sigma_{\alpha_4} \rangle_{G^{(1)}}
+        \right\} \Pause \\
+        &= \frac{1}{n_1}\left(C^{(2)}_W\right)^2 
+        \left[
+            \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \sigma_{\alpha_3} \sigma_{\alpha_4} \rangle_{G^{(1)}} 
+            - \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \rangle_{G^{(1)}}
+              \langle \sigma_{\alpha_3} \sigma_{\alpha_4} \rangle_{G^{(1)}}
+        \right]
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.2 - Dist. condicional de 2ª camada}
+
+    O valor
+    \small
+    \begin{equation*}
+        V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)}
+        := \left(C^{(2)}_W\right)^2 
+        \left[
+            \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \sigma_{\alpha_3} \sigma_{\alpha_4} \rangle_{G^{(1)}} 
+            - \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \rangle_{G^{(1)}}
+              \langle \sigma_{\alpha_3} \sigma_{\alpha_4} \rangle_{G^{(1)}}
+        \right]
+    \end{equation*}
+    é chamado de \textbf{vértice de quatro pontos} de 2ª camada. \pause Desse modo, podemos escrever
+    \begin{equation*}
+        \mathbb{E}\left[ \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} \widehat{\Delta G}^{(2)}_{\alpha_3 \alpha_4} \right] 
+        = \frac{1}{n_1} V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)}.
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{4.2 - Dist. condicional de 2ª camada}
+    \textbf{Observações:}
+    \begin{itemize}
+        \item $V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} == V(x_{\alpha_1},x_{\alpha_2};x_{\alpha_3},x_{\alpha_4})$;
+        \item O vértice de quatro pontos é simétrico sobre $\alpha_1 \leftrightarrow \alpha_2$, $\alpha_3 \leftrightarrow \alpha_4$, $(\alpha_1,\alpha_2) \leftrightarrow (\alpha_3,\alpha_4)$. \pause I.e., \begin{itemize}
+            \item $V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} = V_{(\alpha_2 \alpha_1)(\alpha_3 \alpha_4)}^{(2)}$;
+            \item $V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} = V_{(\alpha_1 \alpha_2)(\alpha_4 \alpha_3)}^{(2)}$;
+            \item $V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} = V_{(\alpha_3 \alpha_4)(\alpha_1 \alpha_2)}^{(2)}$;
+        \end{itemize}
+    \item Quando $n_1 \gg 1$, $\frac{1}{n_1} V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} \to 0$, de modo que a distribuição se aproxima de uma gaussiana.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -744,7 +887,7 @@ Capítulo 4: RG-flow de pré-ativações
 \end{center}
 
 \vspace{1em}
-Contato: riffel.felipe@grad.ufsc.br 
+Contato: riffel.felipe@posgrad.ufsc.br 
 
 \vspace{1em}
 
