@@ -16,6 +16,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{wrapfig}
+\usepackage{MnSymbol}
 \usetheme{mtmufsc} %%%%%%%%Use this template
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \usepackage[alf]{abntex2cite}
@@ -53,6 +54,12 @@ Capítulo 4: RG-flow de pré-ativações
 \section{Introdução}
 \begin{frame}
 \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Introdução}
+    \begin{figure}[H]
+        \includegraphics[width=0.8\textwidth]{fig/meme.jpeg}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Reintroduzindo notação}
@@ -523,36 +530,51 @@ Capítulo 4: RG-flow de pré-ativações
 \tableofcontents[currentsubsection]
 \end{frame}
 
+\begin{frame}{4.1 - Ação Gaussiana em ação}
+    Ideia: computar dois valores importantes para a seção seguinte: \pause
+    \small
+    \begin{itemize}
+        \item $\mathbb{E} \left[ \sigma\left( z^{(1)}_{i_1;\alpha_1} \right) \sigma\left( z^{(1)}_{i_1;\alpha_2} \right) \right]$; \pause
+        \item $\mathbb{E} \left[
+            \sigma\left( z^{(1)}_{i_1;\alpha_1} \right)
+            \sigma\left( z^{(1)}_{i_1;\alpha_2} \right)
+            \sigma\left( z^{(1)}_{i_2;\alpha_3} \right)
+            \sigma\left( z^{(1)}_{i_2;\alpha_4} \right)
+            \right]$.
+    \end{itemize}
+\end{frame}
+
 \begin{frame}
     \frametitle{4.1 - Ação Gaussiana em ação}
 
     \tiny
 
     \begin{align*}
-        \mathbb{E} \left[ \sigma\left( z^{(1)}_{i_1;\alpha_1} \right) \sigma\left( z^{(1)}_{i_1;\alpha_2} \right) \right] \\
-        = \int \left[ \prod_{i=1}^{n_1} \prod_{\alpha \in D} \frac{dz_{i;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right] \Pause
+        &\mathbb{E} \left[ \sigma\left( z^{(1)}_{i_1;\alpha_1} \right) \sigma\left( z^{(1)}_{i_1;\alpha_2} \right) \right] \\
+        &= \int \left[ \prod_{i=1}^{n_1} \prod_{\alpha \in D} \frac{dz_{i;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right] \Pause
         % 
         \times  \exp\left( -\frac{1}{2} \sum_{j=1}^{n_1} \sum_{\beta_1, \beta_2 \in D} G^{(1)}_{\beta_1 \beta_2} z_{j;\beta_1} z_{j;\beta_2} \right)
         \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2}) \Pause \\ 
         % 
-        = \left\{ \prod_{i \neq i_1} \int \left[ \prod_{\alpha \in D} \frac{dz_{i;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right] 
-        \exp \left[ -\frac{1}{2}\sum_{\beta_1, \beta_2 \in D} G^{(1)}_{\beta_1 \beta_2} z_{i;\beta_1} z_{i;\beta_2} \right] \right\}\Pause \\
+        &= \textcolor{teal}{\left\{ \prod_{i \neq i_1} \int \left[ \prod_{\alpha \in D} \frac{dz_{i;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right] 
+        \exp \left[ -\frac{1}{2}\sum_{\beta_1, \beta_2 \in D} G^{(1)}_{\beta_1 \beta_2} z_{i;\beta_1} z_{i;\beta_2} \right] \right\}}\Pause \\
         % 
-        \times \int \left[ \prod_{\alpha \in D} \frac{dz_{i_1;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
+        &\times \int \left[ \prod_{\alpha \in D} \frac{dz_{i_1;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
         \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_1;\beta_1} z_{i_1;\beta_2} \right)
         \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2})\Pause \\
         % 
-        =\{1\} \times \left[ \int \prod_{\alpha \in D} \frac{dz_{i_1\alpha}}{\sqrt{|2\pi G^{(1)}|}}\right] 
+        &=\textcolor{teal}{\{1\}} \times \left[ \int \prod_{\alpha \in D} \frac{dz_{i_1\alpha}}{\sqrt{|2\pi G^{(1)}|}}\right] 
         \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_1\beta_1} z_{i_1\beta_2} \right)
         \sigma(z_{i_1\alpha_1}) \sigma(z_{i_1\alpha_2})\Pause \\
         % 
-        := \langle \sigma(z_{i_1\alpha_1})\sigma(z_{i_1\alpha_2}) \rangle_{G^{(1)}}.
+        &:= \langle \sigma(z_{i_1\alpha_1})\sigma(z_{i_1\alpha_2}) \rangle_{G^{(1)}}.
     \end{align*}
 
 \end{frame}
 
 \begin{frame}{4.1 - Ação Gaussiana em ação}
-    Com a expressão do final, reintroduzimos a notação:
+    \small
+    Com a expressão do final, reintroduzimos a notação para o correlator de $F(z_{\alpha_1}, \ldots, z_{\alpha_m})$ com matriz de variância $g = (g_{\alpha_1\alpha_2})_{N_D \times N_D}$:
     \tiny
     $$
     \left\langle F(z_{\alpha_1}, \ldots, z_{\alpha_m}) \right\rangle_g 
@@ -561,7 +583,7 @@ Capítulo 4: RG-flow de pré-ativações
     \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} g^{\beta_1 \beta_2} z_{\beta_1} z_{\beta_2} \right)
     F(z_{\alpha_1}, \ldots, z_{\alpha_m})
     $$
-    \normalsize
+    \small
     \pause
     e denotamos ainda:
 
@@ -597,7 +619,7 @@ Capítulo 4: RG-flow de pré-ativações
     \sigma\left( z^{(1)}_{i_2;\alpha_4} \right)
     \right]
     $$
-
+    \pause
     $$
     = \left\{ 
     \prod_{i \notin \{i_1, i_2\}} 
@@ -607,20 +629,20 @@ Capítulo 4: RG-flow de pré-ativações
     $$
 
     $$
-    \times \displaystyle \int \left[ \frac{\prod_{\alpha \in D} dz_{i_1;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
+    \textcolor{teal}{\times \displaystyle \int \left[ \frac{\prod_{\alpha \in D} dz_{i_1;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
     \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_1;\beta_1} z_{i_1;\beta_2} \right)
-    \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2})
+    \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2})}
     $$
 
     $$
-    \times \displaystyle \int \left[ \frac{\prod_{\alpha \in D} dz_{i_2;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
+    \textcolor{orange}{\times \displaystyle \int \left[ \frac{\prod_{\alpha \in D} dz_{i_2;\alpha}}{\sqrt{|2\pi G^{(1)}|}} \right]
     \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} G_{(1)}^{\beta_1 \beta_2} z_{i_2;\beta_1} z_{i_2;\beta_2} \right)
-    \sigma(z_{i_2;\alpha_3}) \sigma(z_{i_2;\alpha_4})
+    \sigma(z_{i_2;\alpha_3}) \sigma(z_{i_2;\alpha_4})}
     $$
-
+    \pause 
     $$
-    = \left\langle \sigma(z_{\alpha_1}) \sigma(z_{\alpha_2}) \right\rangle_{G^{(1)}}
-    \left\langle \sigma(z_{\alpha_3}) \sigma(z_{\alpha_4}) \right\rangle_{G^{(1)}}
+    = \textcolor{teal}{\left\langle \sigma(z_{\alpha_1}) \sigma(z_{\alpha_2}) \right\rangle_{G^{(1)}}}
+    \textcolor{orange}{\left\langle \sigma(z_{\alpha_3}) \sigma(z_{\alpha_4}) \right\rangle_{G^{(1)}}}
     $$
 
 
@@ -686,7 +708,7 @@ Capítulo 4: RG-flow de pré-ativações
     \begin{equation}
         p(z^{(2)} \mid z^{(1)}) = \int \left[\prod_i db_i^{(2)} p (b_i^{(2)}) \right] 
         \left[\prod_{i,j} dW_{ij}^{(2)} p (W_{ij}^{(2)}) \right] 
-        \prod_{i,\alpha} \delta(z^{(2)}_i(x_\alpha) - b^{(2)}_i - \sum_{j=1}^{n_1} W^{(2)}_{ij} \, \sigma_{j;\alpha}^{(1)})
+        \prod_{i,\alpha} \delta \left(z^{(2)}_i(x_\alpha) - b^{(2)}_i - \sum_{j=1}^{n_1} W^{(2)}_{ij} \, \sigma_{j;\alpha}^{(1)}\right)
     \end{equation}
 \end{frame}
 
@@ -694,7 +716,7 @@ Capítulo 4: RG-flow de pré-ativações
     Ainda, podemos calcular as probabilidades marginalizadas como:
 
     \begin{equation}
-        p(z^{(2)} \mid D) = \int \left[\prod_{i;\alpha} z^{(1)} p(z^{(1)} \mid z^{(2)})\right]
+        p(z^{(2)} \mid D) = \int \left[\prod_{i;\alpha} dz^{(1)}_{i;\alpha}\right]p(z^{(1)} \mid z^{(2)}) p(z^{(1)} \mid D).
     \end{equation}
 
 \end{frame}
@@ -977,6 +999,150 @@ Capítulo 4: RG-flow de pré-ativações
         \item Isso evidencia a importância de $V^{(2)}_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}$ na ``não-gaussianidade'' de $p(z^{(2)} \mid D)$; \pause
         \item Mais uma vez mostra que se $n_1 \to \infty$, o correlator se aproxima de 0 e $p(z^{(2)} \mid D)$ se aproxima de uma gaussiana.
     \end{itemize}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Vamos atrás de uma ação quártica:
+
+    \begin{align*}
+        S[z] &= \frac{1}{2} \sum_{\alpha_1\alpha_2\in D} g^{\alpha_1\alpha_2} \sum_{i=1}^n z_{i;\alpha_1} z_{i;\alpha_2} \\
+        &- \frac{1}{8} \sum_{\alpha_1,\dots,\alpha_4 \in D}v^{(\alpha_1\alpha_2)(\alpha_3\alpha_4)}\sum_{i_1,i_2=1}^n z_{i_1;\alpha_1}z_{i_1;\alpha_2}z_{i_2;\alpha_3}z_{i_2;\alpha_4}
+    \end{align*}
+    
+    com $g$ e $v$ por hora indeterminados.
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Em 4.1, lembramos a notação
+    \small
+    \begin{equation*}
+        \left\langle F(z_{\alpha_1}, \ldots, z_{\alpha_m}) \right\rangle_g 
+        \equiv 
+        \displaystyle \int \left[\frac{\prod_{\alpha \in D} dz_\alpha}{\sqrt{|2\pi g|}} \right]
+        \exp\left( -\frac{1}{2} \sum_{\beta_1, \beta_2 \in D} g^{\beta_1 \beta_2} z_{\beta_1} z_{\beta_2} \right)
+        F(z_{\alpha_1}, \ldots, z_{\alpha_m})
+    \end{equation*}
+
+    \pause
+
+    Agora, introduzimos a notação:
+
+    \begin{align*}
+        &\llangle F(z_{i_1;\alpha_1},\dots, z_{i_m;\alpha_m}) \rrangle_g \\
+        &= \left[
+            \prod_{i=1}^n \frac{\prod_{\alpha\in D}dz_{i;\alpha}}{\sqrt{|2\pi g|}}
+        \right]
+        \exp \left(
+            -\frac{1}{2} \sum_{j=1}^n \sum_{\beta_1,\beta_2\in D}g^{(\beta_1\beta_2)}z_{j;\beta_1}z_{j;\beta_2} 
+        \right)
+        F(z_{i_1;\alpha_1},\dots, z_{i_m;\alpha_m})
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Obtemos então:
+    \tiny
+    \begin{align*}
+        & \mathbb E[F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})] \\
+        &= \frac{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}F(z_{i_1;\alpha_1}, \dots, z_{i_m;\alpha_m})}{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}} \Pause \\
+        &=\frac{ \llangle
+            \exp\left\{
+                \frac{1}{8}
+                \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+                F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+            \right\}
+        \rrangle_g
+        }{
+            \exp \left\{
+                \llangle
+                    \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+                \rrangle_g
+            \right\}
+        } \Pause \\
+        &\llangle 
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g \\
+        &+ \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)} 
+        \sum_{j_1,j_2=1}^n [
+            \llangle
+                z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+            \rrangle_g \\
+            &-\llangle
+                z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \rrangle_g
+            \llangle
+                F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+            \rrangle_g 
+        ] \\
+        &+ O(v^2)
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Por exemplo, no correlator de dois pontos,
+    \tiny
+    \begin{align*}
+        &\mathbb{E} \left[ z_{i_1;\alpha_1} \, z_{i_2;\alpha_2} \right] \\
+        &= \delta_{i_1 i_2} 
+        \left[ 
+        g_{\alpha_1 \alpha_2} 
+        + \frac{1}{2} \sum_{\beta_1, \dots, \beta_4 \in D} 
+        v^{(\beta_1 \beta_2)(\beta_3 \beta_4)} 
+        \left( 
+        n \, g_{\alpha_1 \beta_1} \, g_{\alpha_2 \beta_2} \, g_{\beta_3 \beta_4} 
+        + 2 \, g_{\alpha_1 \beta_1} \, g_{\alpha_2 \beta_3} \, g_{\beta_2 \beta_4} 
+        \right) 
+        \right] 
+        + \mathcal{O}(v^2)
+    \end{align*} 
+    sendo $g_{\alpha_1\alpha_2}$ a inversa do termo quadrático $g^{\alpha_1\alpha_2}$ de $S[z]$.
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Já no correlator de 4 pontos, 
+    \tiny
+    \begin{align*}
+        &\mathbb{E} \left[ z_{i_1;\alpha_1} z_{i_2;\alpha_2} z_{i_3;\alpha_3} z_{i_4;\alpha_4} \right]_{\text{connected}}  \\
+        &\equiv 
+        \mathbb{E} \left[ z_{i_1;\alpha_1} z_{i_2;\alpha_2} z_{i_3;\alpha_3} z_{i_4;\alpha_4} \right] 
+        - \mathbb{E} \left[ z_{i_1;\alpha_1} z_{i_2;\alpha_2} \right] \mathbb{E} \left[ z_{i_3;\alpha_3} z_{i_4;\alpha_4} \right] \\
+        &\quad 
+        - \mathbb{E} \left[ z_{i_1;\alpha_1} z_{i_3;\alpha_3} \right] \mathbb{E} \left[ z_{i_2;\alpha_2} z_{i_4;\alpha_4} \right] 
+        - \mathbb{E} \left[ z_{i_1;\alpha_1} z_{i_4;\alpha_4} \right] \mathbb{E} \left[ z_{i_2;\alpha_2} z_{i_3;\alpha_3} \right] \\
+        &= 
+        \delta_{i_1 i_2} \delta_{i_3 i_4} \sum_{\beta_1, \dots, \beta_4 \in D} 
+        v^{(\beta_1 \beta_2)(\beta_3 \beta_4)} \,
+        g_{\alpha_1 \beta_1} \, g_{\alpha_2 \beta_2} \, g_{\alpha_3 \beta_3} \, g_{\alpha_4 \beta_4} \\
+        &\quad 
+        + \delta_{i_1 i_3} \delta_{i_2 i_4} \sum_{\beta_1, \dots, \beta_4 \in D} 
+        v^{(\beta_1 \beta_3)(\beta_2 \beta_4)} \,
+        g_{\alpha_1 \beta_1} \, g_{\alpha_3 \beta_3} \, g_{\alpha_2 \beta_2} \, g_{\alpha_4 \beta_4} \\
+        &\quad 
+        + \delta_{i_1 i_4} \delta_{i_2 i_3} \sum_{\beta_1, \dots, \beta_4 \in D} 
+        v^{(\beta_1 \beta_4)(\beta_2 \beta_3)} \,
+        g_{\alpha_1 \beta_1} \, g_{\alpha_4 \beta_4} \, g_{\alpha_2 \beta_2} \, g_{\alpha_3 \beta_3} \\
+        &\quad + \mathcal{O}(v^2).
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    \small
+    Comparando os slides anteriores com as contas feitas na subseção anterior, estabelecendo:
+    \begin{align*}
+        g^{\alpha_1\alpha_2} &= G_{(2)}^{\alpha_1\alpha_2} + O(\frac{1}{n_1}) \\
+        v^{(\alpha_1\alpha_2)(\alpha_3\alpha_4)} &= \frac{1}{n_1} V_{(2)}^{(\alpha_1\alpha_2)(\alpha_3\alpha_4)} + O(\frac{1}{n_1^2})
+    \end{align*}
+
+    reproduzimos os correlatores de 2ª camada até ordem $\frac{1}{n_1}$, com a distribuição marginal
+
+    \begin{equation*}
+        p(z^{(2)} \mid D) = \frac{1}{Z} e^{- S[z^{(2)}]}
+    \end{equation*}
+    \pause
+
+    Obs: aqui, \begin{equation*}
+        V_{(2)}^{(\alpha_1\alpha_2)(\alpha_3\alpha_4)} = \sum_{\beta_1, \dots, \beta_4} G_{(2)}^{\alpha_1\beta_1} G_{(2)}^{\alpha_2\beta_2} G_{(2)}^{\alpha_3\beta_3} G_{(2)}^{\alpha_4\beta_4} V^{(2)}_{(\beta_1\beta_2)(\beta_3\beta_4)}
+    \end{equation*}
 \end{frame}
 
 \begin{frame}
