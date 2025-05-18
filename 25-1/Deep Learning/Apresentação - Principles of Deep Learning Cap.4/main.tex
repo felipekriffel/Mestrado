@@ -712,7 +712,7 @@ Capítulo 4: RG-flow de pré-ativações
     \end{itemize}
 
     Desse modo, a probabilidade fica:
-    \begin{equation}
+    \begin{equation}\label{eq:pz2-dado-pz1}
         p(z^{(2)} \mid z^{(1)}) = \frac{1}{|2\pi \widehat G^{(2)}|^{\frac{n_2}{2}}} \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2}^{n_2} \widehat G_{(2)}^{\alpha_1 \alpha_2} z^{(2)}_{j; \alpha_1} z^{(2)}_{j; \alpha_2}\right]
     \end{equation} 
     \pause
@@ -867,8 +867,115 @@ Capítulo 4: RG-flow de pré-ativações
             \item $V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} = V_{(\alpha_2 \alpha_1)(\alpha_3 \alpha_4)}^{(2)}$;
             \item $V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} = V_{(\alpha_1 \alpha_2)(\alpha_4 \alpha_3)}^{(2)}$;
             \item $V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} = V_{(\alpha_3 \alpha_4)(\alpha_1 \alpha_2)}^{(2)}$;
-        \end{itemize}
-    \item Quando $n_1 \gg 1$, $\frac{1}{n_1} V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} \to 0$, de modo que a distribuição se aproxima de uma gaussiana.
+        \end{itemize} \pause
+    \item Quando $n_1 \gg 1$, $\frac{1}{n_1} V_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}^{(2)} \to 0$, de modo que a distribuição se aproxima de uma Gaussiana.
+    \end{itemize}
+\end{frame}
+
+\subsection{Wick Wick Wick: derivação combinatória}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    \small
+
+    Como visto na Equação~\eqref{eq:pz2-dado-pz1}, $p(z^{(2)}\mid z^{(1)})$ é gaussiana (em relação a $z^{(1)}$), com média 0 e variância (estocástica) $\widehat{G}^{(2)}_{\alpha_1\alpha_2}$:
+    \begin{equation*}
+        p(z^{(2)} \mid z^{(1)}) = \frac{1}{|2\pi \widehat G^{(2)}|^{\frac{n_2}{2}}} \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2}^{n_2} \widehat G_{(2)}^{\alpha_1 \alpha_2} z^{(2)}_{j; \alpha_1} z^{(2)}_{j; \alpha_2}\right]
+    \end{equation*}
+
+    \pause Isso nos permite usar as \textit{contrações de Wick}. \pause Para o correlator de 2 pontos:
+    \begin{align*}
+        \mathbb E \left[
+            z^{(2)}_{i_1;\alpha_1}z^{(2)}_{i_2;\alpha_2}
+        \right]
+        &= \delta_{i_1i_2} \mathbb E [\widehat G^{(2)}_{\alpha_1 \alpha_2}] \\
+        &= \delta_{i_1i_2} G^{(2)}_{\alpha_1 \alpha_2} \\
+        &= \delta_{i_1i_2} \left(C^{(2)}_b + C^{(2)}_W \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \rangle_{G^{(1)}} \right)
+    \end{align*}
+    \pause 
+    \scriptsize
+    Obs: o livro não explica, mas o valor esperado deve aparecer aqui no teorema de Wick pela variância ser uma variável estocástica. Uma conta parecida com a Seção 4.1 (Wick this way) também revela onde surge a esperança.
+
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    \footnotesize
+    No correlator de 4 pontos:
+    \tiny
+    \begin{align*}
+        &\mathbb{E} \big[ z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_2;\alpha_2} z^{(2)}_{i_3;\alpha_3} z^{(2)}_{i_4;\alpha_4} \big] \\
+        &= \delta_{i_1 i_2} \delta_{i_3 i_4} \, \mathbb{E} \big[ \widehat{G}^{(2)}_{\alpha_1 \alpha_2} \widehat{G}^{(2)}_{\alpha_3 \alpha_4} \big] 
+        + \delta_{i_1 i_3} \delta_{i_2 i_4} \, \mathbb{E} \big[ \widehat{G}^{(2)}_{\alpha_1 \alpha_3} \widehat{G}^{(2)}_{\alpha_2 \alpha_4} \big] 
+        + \delta_{i_1 i_4} \delta_{i_2 i_3} \, \mathbb{E} \big[ \widehat{G}^{(2)}_{\alpha_1 \alpha_4} \widehat{G}^{(2)}_{\alpha_2 \alpha_3} \big] \Pause
+    \end{align*} \footnotesize 
+    Lembrando,
+    \begin{itemize}
+        \item $ \widehat{G}^{(2)}_{\alpha_1 \alpha_2} =G^{(2)}_{\alpha_1 \alpha_2} + \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2}$; \pause
+        \item $\mathbb E[\widehat{G}^{(2)}_{\alpha_1 \alpha_2}]:=G^{(2)}_{\alpha_1 \alpha_2}$; \pause
+        \item $\mathbb{E}\left[ \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} \right] =0$;
+    \end{itemize}
+    
+    Assim:
+    \tiny
+    \begin{align*}
+        &\mathbb{E} \left[ \widehat{G}^{(2)}_{\alpha_1 \alpha_2} \widehat{G}^{(2)}_{\alpha_3 \alpha_4} \right]
+        = \mathbb{E} \left[ \left(G^{(2)}_{\alpha_1 \alpha_2} + \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} \right)
+        \left(G^{(2)}_{\alpha_3 \alpha_4} + \widehat{\Delta G}^{(2)}_{\alpha_3 \alpha_4} \right) \right] \Pause \\
+        &= G^{(2)}_{\alpha_1 \alpha_2} G^{(2)}_{\alpha_3 \alpha_4}
+        + G^{(2)}_{\alpha_1 \alpha_2} \, \mathbb{E}\left[ \widehat{\Delta G}^{(2)}_{\alpha_3 \alpha_4} \right]
+        + G^{(2)}_{\alpha_3 \alpha_4} \, \mathbb{E}\left[ \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} \right] + \mathbb{E} \left[ \widehat{\Delta G}^{(2)}_{\alpha_1 \alpha_2} \widehat{\Delta G}^{(2)}_{\alpha_3 \alpha_4} \right] \Pause \\
+        &= G^{(2)}_{\alpha_1 \alpha_2} G^{(2)}_{\alpha_3 \alpha_4}
+        + V^{(2)}_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}
+    \end{align*} \pause \footnotesize
+    O mesmo argumento se repete para as outras permutações de índices.
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    \small
+    Com isso,
+    \tiny
+    \begin{align*}    
+        &\mathbb{E} \big[ z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_2;\alpha_2} z^{(2)}_{i_3;\alpha_3} z^{(2)}_{i_4;\alpha_4} \big] \\
+        &= \delta_{i_1 i_2} \delta_{i_3 i_4} \, \mathbb{E} \big[ \hat{G}^{(2)}_{\alpha_1 \alpha_2} \hat{G}^{(2)}_{\alpha_3 \alpha_4} \big] 
+        + \delta_{i_1 i_3} \delta_{i_2 i_4} \, \mathbb{E} \big[ \hat{G}^{(2)}_{\alpha_1 \alpha_3} \hat{G}^{(2)}_{\alpha_2 \alpha_4} \big] 
+        + \delta_{i_1 i_4} \delta_{i_2 i_3} \, \mathbb{E} \big[ \hat{G}^{(2)}_{\alpha_1 \alpha_4} \hat{G}^{(2)}_{\alpha_2 \alpha_3} \big] \Pause \\
+        &= \delta_{i_1 i_2} \delta_{i_3 i_4} G^{(2)}_{\alpha_1 \alpha_2} G^{(2)}_{\alpha_3 \alpha_4}
+        + \delta_{i_1 i_3} \delta_{i_2 i_4} G^{(2)}_{\alpha_1 \alpha_3} G^{(2)}_{\alpha_2 \alpha_4}
+        + \delta_{i_1 i_4} \delta_{i_2 i_3} G^{(2)}_{\alpha_1 \alpha_4} G^{(2)}_{\alpha_2 \alpha_3} \\
+        &+ \frac{1}{n_1} \Big[
+        \delta_{i_1 i_2} \delta_{i_3 i_4} V^{(2)}_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}
+        + \delta_{i_1 i_3} \delta_{i_2 i_4} V^{(2)}_{(\alpha_1 \alpha_3)(\alpha_2 \alpha_4)} 
+        + \delta_{i_1 i_4} \delta_{i_2 i_3} V^{(2)}_{(\alpha_1 \alpha_4)(\alpha_2 \alpha_3)} \Big]
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    \small
+    Isso nos permite ver que:
+    \tiny
+    \begin{align*}
+        &\mathbb{E} \big[ z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_2;\alpha_2} z^{(2)}_{i_3;\alpha_3} z^{(2)}_{i_4;\alpha_4} \big]_{\text{connected}} \\
+        &= \mathbb{E} \big[ z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_2;\alpha_2} z^{(2)}_{i_3;\alpha_3} z^{(2)}_{i_4;\alpha_4} \big] \\
+            &- \mathbb E[z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_2;\alpha_2}]\mathbb E[z^{(2)}_{i_3;\alpha_3} z^{(2)}_{i_4;\alpha_4}] 
+            - \mathbb E[z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_3;\alpha_3}]\mathbb E[z^{(2)}_{i_2;\alpha_2} z^{(2)}_{i_4;\alpha_4}]
+            - \mathbb E[z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_4;\alpha_4}]\mathbb E[z^{(2)}_{i_2;\alpha_2} z^{(2)}_{i_3;\alpha_3}] \Pause \\
+        &= \mathbb{E} \big[ z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_2;\alpha_2} z^{(2)}_{i_3;\alpha_3} z^{(2)}_{i_4;\alpha_4} \big] \\
+         &- \delta_{i_1 i_2} \delta_{i_3 i_4} G^{(2)}_{\alpha_1 \alpha_2} G^{(2)}_{\alpha_3 \alpha_4}
+        - \delta_{i_1 i_3} \delta_{i_2 i_4} G^{(2)}_{\alpha_1 \alpha_3} G^{(2)}_{\alpha_2 \alpha_4}
+        - \delta_{i_1 i_4} \delta_{i_2 i_3} G^{(2)}_{\alpha_1 \alpha_4} G^{(2)}_{\alpha_2 \alpha_3}\Pause \\
+        &= \frac{1}{n_1} \Big[
+            \delta_{i_1 i_2} \delta_{i_3 i_4} V^{(2)}_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}
+            + \delta_{i_1 i_3} \delta_{i_2 i_4} V^{(2)}_{(\alpha_1 \alpha_3)(\alpha_2 \alpha_4)} 
+            + \delta_{i_1 i_4} \delta_{i_2 i_3} V^{(2)}_{(\alpha_1 \alpha_4)(\alpha_2 \alpha_3)} \Big]
+    \end{align*}\pause
+    \small
+    Observações:
+    \begin{itemize}
+        \item Isso evidencia a importância de $V^{(2)}_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)}$ na ``não-gaussianidade'' de $p(z^{(2)} \mid D)$; \pause
+        \item Mais uma vez mostra que se $n_1 \to \infty$, o correlator se aproxima de 0 e $p(z^{(2)} \mid D)$ se aproxima de uma gaussiana.
     \end{itemize}
 \end{frame}
 
