@@ -755,7 +755,7 @@ Capítulo 4: RG-flow de pré-ativações
 \begin{frame}{4.2 - Dist. condicional de 2ª camada}
     Podemos então calcular seu valor esperado:
     \begin{align*}
-        \mathbb E [\widehat G^{(2)_{\alpha_1 \alpha_2}}] &= C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} \mathbb E[\sigma_{j; \alpha_1} \sigma_{j; \alpha_2}] \Pause \\ 
+        \mathbb E [\widehat G^{(2)}_{\alpha_1 \alpha_2}] &= C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} \mathbb E[\sigma_{j; \alpha_1} \sigma_{j; \alpha_2}] \Pause \\ 
         &= C_b^{(2)} + C_W^{(2)} \frac{1}{n_1} \sum_{j=1}^{n_1} \langle \sigma_{j; \alpha_1} \sigma_{j; \alpha_2} \rangle_{G^{(1)}} \Pause \\ 
         &:= G^{(2)}_{\alpha_1 \alpha_2}.
     \end{align*} 
@@ -1013,8 +1013,8 @@ Capítulo 4: RG-flow de pré-ativações
 \end{frame}
 
 \begin{frame}{4.2 - Wick Wick Wick}
+    \scriptsize
     Em 4.1, lembramos a notação
-    \small
     \begin{equation*}
         \left\langle F(z_{\alpha_1}, \ldots, z_{\alpha_m}) \right\rangle_g 
         \equiv 
@@ -1049,15 +1049,14 @@ Capítulo 4: RG-flow de pré-ativações
             \exp\left\{
                 \frac{1}{8}
                 \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
-                F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
-            \right\}
+            \right\}F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
         \rrangle_g
         }{
+            \llangle
             \exp \left\{
-                \llangle
                     \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
-                \rrangle_g
             \right\}
+            \rrangle_g
         } \Pause \\
         &\llangle 
             F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
@@ -1076,6 +1075,9 @@ Capítulo 4: RG-flow de pré-ativações
         ] \\
         &+ O(v^2)
     \end{align*}
+
+    \pause
+    Obs: no final, usando a expansão de Taylor $e^v \approx 1+v + O(v^2)$.
 \end{frame}
 
 \begin{frame}{4.2 - Wick Wick Wick}
