@@ -17,6 +17,7 @@
 \usepackage{subcaption}
 \usepackage{wrapfig}
 \usepackage{MnSymbol}
+\usepackage{soul}
 \usetheme{mtmufsc} %%%%%%%%Use this template
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \usepackage[alf]{abntex2cite}
@@ -265,7 +266,7 @@ Capítulo 4: RG-flow de pré-ativações
     $$
 \end{frame}
 
-\subsection{"Hubbard-Stratonovich this way'': derivação algébria via ação}
+\subsection{"Hubbard-Stratonovich this way'': derivação algébrica via ação}
 \begin{frame}
 \tableofcontents[currentsubsection]
 \end{frame}
@@ -1151,6 +1152,183 @@ Capítulo 4: RG-flow de pré-ativações
     Obs: aqui, \begin{equation*}
         V_{(2)}^{(\alpha_1\alpha_2)(\alpha_3\alpha_4)} = \sum_{\beta_1, \dots, \beta_4} G_{(2)}^{\alpha_1\beta_1} G_{(2)}^{\alpha_2\beta_2} G_{(2)}^{\alpha_3\beta_3} G_{(2)}^{\alpha_4\beta_4} V^{(2)}_{(\beta_1\beta_2)(\beta_3\beta_4)}
     \end{equation*}
+\end{frame}
+
+
+\subsection{Schwinger-Dyson this way: derivação algébrica}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+    Voltamos à distribuição marginalizada:
+
+    \begin{equation*}
+        p(z^{(2)} \mid D) = \int \left[\prod_{i;\alpha} dz^{(1)}_{i;\alpha}\right]p(z^{(1)} \mid z^{(2)}) p(z^{(1)} \mid D).
+    \end{equation*}
+
+    \pause
+    
+    Em subseção anterior, vimos que:
+
+    \begin{equation*}
+        p(z^{(2)} \mid z^{(1)}) = \frac{1}{|2\pi \widehat G^{(2)}|^{\frac{n_2}{2}}} \exp \left[- \frac{1}{2} \sum_{j, \alpha_1, \alpha_2}^{n_2} \widehat G_{(2)}^{\alpha_1 \alpha_2} z^{(2)}_{j; \alpha_1} z^{(2)}_{j; \alpha_2}\right]
+    \end{equation*} 
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+
+    Juntando as pecinhas:
+    
+    \small
+
+    \begin{align*}
+        p(z^{(2)}\mid D) &= \int \left[
+            \prod_{i,\alpha} dz_{i;\alpha}^{(1)} 
+        \right]
+        p(z^{(1)}\mid D) \frac{
+            \exp\left(
+                - \frac 1 2 \sum_{j=1}^{n_2} \sum_{\alpha_1,\alpha_2 \in D} \widehat{G}^{\alpha_1 \alpha_2}_{(2)} z_{j,\alpha_1}^{(2)}z_{j,\alpha_2}^{(2)}
+            \right)
+        }{
+            |2\pi \widehat G^{(2)}|^{\frac{n_2}{2}}   
+        } \\
+        &= \int \left[
+            \prod_{i,\alpha} dz_{i;\alpha}^{(1)} 
+        \right]
+        p(z^{(1)}\mid D) \frac{
+            \exp\left(
+                - \frac 1 2 z^T \widehat G^{-1} z
+            \right)
+        }{
+            |2\pi \widehat G|^{\frac{n_2}{2}}   
+        }
+    \end{align*}
+
+    Obs: daqui em diante, vamos omitir o sobrescrito $(2)$ das $G$ (aparece sempre).
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+    Ideia: partir da decomposição
+
+    \begin{equation*}
+        \widehat G_{\alpha_1 \alpha_2} = G_{\alpha_1 \alpha_2} + \widehat{\Delta G}_{\alpha_1 \alpha_2},
+    \end{equation*}
+    \pause
+    e mergulhar de cabeça \st{na loucura} nas expansões de Taylor.
+    \pause
+
+    Primeiro: usamos a aproximação
+
+    \begin{equation*}
+        \widehat G^{-1} = G^{-1} - G^{-1} \widehat{\Delta G} G^{-1} - G^{-1} \widehat{\Delta G} G^{-1} \widehat{\Delta G} G^{-1} + O(\Delta^3).
+    \end{equation*}
+    \pause
+    \begin{equation*}
+        \left((M+N)^{-1} = M^{-1} - M^{-1} N M^{-1} + M^{-1} N M^{-1} N M^{-1} + O(N^3).
+        \right)
+    \end{equation*}
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+    Assim,
+    \small
+    \begin{align*}
+        &\exp \left(
+            - \frac 1 2 z^T \widehat G^{-1} z 
+        \right) \\
+        &= \exp \left(
+            - \frac 1 2 z^T G^{-1} z 
+        \right)\\
+        & \times \exp \{
+            1 + \frac 1 2 z^T G^{-1} \widehat{\Delta G} G^{-1} z - \frac 1 2 z^T G^{-1} \widehat{\Delta G} G^{-1} \widehat{\Delta G} G^{-1} z
+        \}
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+
+    Agora, usamos a expansão de Taylor em $\widehat{\Delta G}$:
+
+    \begin{equation*}
+        \exp(x) \approx 1 + x + \frac{x^2}{2} + O(x^3)
+    \end{equation*}
+    \small
+    Temos então:
+    \small
+    \begin{align*}
+        &\exp \left(
+            - \frac 1 2 z^T \widehat G^{-1} z 
+        \right) \\
+        &= \exp \left(
+            - \frac 1 2 z^T G^{-1} z 
+        \right)\\
+        & \times \{
+            1 + \frac 1 2 z^T G^{-1} \widehat{\Delta G} G^{-1} z \\
+        & -\frac 1 2 z^T G^{-1} \widehat{\Delta G} G^{-1} \widehat{\Delta G} G^{-1} \\
+        & +\frac{1}{2!} \left(\frac{1}{2}\right)^2 ( z^T G^{-1} \widehat{\Delta G} G^{-1} z)^2 + O(\Delta^3)
+        \} 
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+    Usando na expressão do determinante:
+    \footnotesize
+    \begin{align*}
+        &|2\pi\widehat{G}|^{\frac{n_2}{2}} = \int \left[
+            \prod_{i;\alpha} d z_{i;\alpha}
+        \right]
+        \exp(-\frac 1 2 z^T G z) \\
+        &= \int \left[
+            \prod_{i;\alpha} d z_{i;\alpha}
+        \right]
+        \exp \left(
+            - \frac 1 2 z^T G^{-1} z 
+        \right) \times \{
+            1 + \frac 1 2 z^T G^{-1} \widehat{\Delta G} G^{-1} z \\
+            &-\frac 1 2 z^T G^{-1} \widehat{\Delta G} G^{-1} \widehat{\Delta G} G^{-1} 
+            +\frac{1}{2!} \left(\frac{1}{2}\right)^2 ( z^T G^{-1} \widehat{\Delta G} G^{-1} z)^2 + O(\Delta^3)
+        \}     \\
+        &= \sqrt{ \left| (2\pi G) \right|^{n_2} }
+        \bigg[
+        1
+        + \frac{n_2}{2} \sum_{\beta_1, \beta_2 \in D} \widehat{\Delta G}_{\beta_1 \beta_2} G^{\beta_1 \beta_2} \nonumber \\
+        &\quad
+        + \sum_{\beta_1, \dots, \beta_4 \in D}
+        \widehat{\Delta G}_{\beta_1 \beta_2} \widehat{\Delta G}_{\beta_3 \beta_4}
+        \left(
+        \frac{n_2^2}{8} G^{\beta_1 \beta_2} G^{\beta_3 \beta_4}
+        - \frac{n_2}{4} G^{\beta_1 \beta_3} G^{\beta_2 \beta_4}
+        \right)
+        + \mathcal{O}(\Delta^3)
+        \bigg]
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+    \footnotesize
+    \begin{align*}
+        p\left(z^{(2)} \mid D\right)
+        &= \frac{1}{\left| 2\pi G^{(2)} \right|^{\frac{n_2}{2}} }
+        \exp\left(
+            -\frac{1}{2} \sum_{j=1}^{n_2} \sum_{\alpha_1, \alpha_2 \in D}
+            G_{(2)}^{\alpha_1 \alpha_2} \, z^{(2)}_{j;\alpha_1} z^{(2)}_{j;\alpha_2}
+        \right) \nonumber \\
+        &\quad \times \Bigg\{
+        \left[1 + \mathcal{O}\left(\frac{1}{n_1}\right)\right]
+        + n_2 \sum_{i=1}^{n_2} \sum_{\alpha_1, \alpha_2 \in D}
+        \left[ \mathcal{O}\left(\frac{1}{n_1}\right) \right]
+        z^{(2)}_{i;\alpha_1} z^{(2)}_{i;\alpha_2} \nonumber \\
+        &\quad\quad
+        + \frac{1}{8n_1} n_2 \sum_{i_1, i_2 = 1}^{n_2}
+        \sum_{\alpha_1, \dots, \alpha_4 \in D}
+        V_{(2)}^{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)} \,
+        z^{(2)}_{i_1;\alpha_1} z^{(2)}_{i_1;\alpha_2}
+        z^{(2)}_{i_2;\alpha_3} z^{(2)}_{i_2;\alpha_4}
+        \Bigg\} \\
+        &+ \mathcal{O}\left( \frac{1}{n_1^2} \right)
+    \end{align*}
 \end{frame}
 
 \begin{frame}
