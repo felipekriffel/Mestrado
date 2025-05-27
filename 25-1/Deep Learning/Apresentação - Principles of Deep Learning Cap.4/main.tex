@@ -1050,8 +1050,7 @@ Capítulo 4: RG-flow de pré-ativações
     Obtemos então:
     \tiny
     \begin{align*}
-        & \mathbb E[F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})] \\
-        &= \frac{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}F(z_{i_1;\alpha_1}, \dots, z_{i_m;\alpha_m})}{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}} \Pause \\
+        & \mathbb E[F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})] = \frac{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}F(z_{i_1;\alpha_1}, \dots, z_{i_m;\alpha_m})}{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}} \Pause \\
         &=\frac{ \llangle
             \exp\left\{
                 \frac{1}{8}
@@ -1064,8 +1063,292 @@ Capítulo 4: RG-flow de pré-ativações
                     \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
             \right\}
             \rrangle_g
-        } \Pause \\
-        &\llangle 
+        } \Pause 
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Vamos usar a expansão de Taylor da exponencial em $v$:
+    \footnotesize
+    \[
+        e^v = 1 + v + O(v^2)
+    \]
+
+    \normalsize
+    Logo,
+    \tiny
+    \begin{align*}
+        &\frac{ \llangle
+            \exp\left\{
+                \frac{1}{8}
+                \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \right\}F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g
+        }{
+            \llangle
+            \exp \left\{
+                    \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \right\}
+            \rrangle_g
+        } \\
+        %
+        &=\frac{ \llangle
+            \left( 
+                1 + \frac{1}{8}
+                \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \right)F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g
+        }{
+            \llangle
+                1 + \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \rrangle_g
+        }\\
+        &+O(v^2) \\
+        %
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Omitindo os índices por um instantinho,
+    \tiny
+    \begin{align*}
+        % &=\frac{ \llangle
+        %     F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        %     \rrangle_g
+        %     +
+        %     \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\llangle
+        %         \sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+        %         F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        %     \rrangle_g
+        %
+        % }{
+        %     1 + \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}
+        %     \llangle
+        %     \sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+        %     \rrangle_g
+        % } \\
+        % &+O(v^2) \\
+        &=\frac{ \llangle
+            \left( 
+                1 + \frac{1}{8}
+                \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \right)F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g
+        }{
+            \llangle
+                1 + \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \rrangle_g
+        }\\
+        &+O(v^2) \\ \Pause
+        &=\frac{ \llangle
+            F
+            \rrangle_g
+            +
+            \sum_{\beta}v^{(\beta)}\llangle
+                \sum_{j}^n z_{j}
+                F
+            \rrangle_g
+        %
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        } + O(v^2) \\ \Pause
+        &=\frac{\llangle
+            F
+            \rrangle_g
+            +
+            + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+            \llangle
+                F
+            \rrangle_g
+        %
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        }
+        +
+        \frac{
+            \sum_{\beta}v^{(\beta)}\llangle
+                \sum_{j}^n z_{j}
+                F
+            \rrangle_g
+            -
+            \sum_{\beta}v^{(\beta)}\llangle
+                \sum_{j}^n z_{j}
+            \rrangle_g
+            \llangle
+                F
+            \rrangle_g
+        %
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        }  
+        + O(v^2) \\ \Pause
+        &=\llangle
+            F
+        \rrangle_g  
+        +
+        \frac{
+            \sum_{\beta}v^{(\beta)}\left[\llangle
+                \sum_{j}^n z_{j}
+                F
+            \rrangle_g
+            -
+            \llangle
+                \sum_{j}^n z_{j}
+            \rrangle_g
+            \llangle
+                F
+            \rrangle_g\right]
+        %
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        }  
+        + O(v^2) \\ \Pause
+        &=\llangle
+            F
+        \rrangle_g  
+        +
+        \frac{
+            \sum_{\beta}v^{(\beta)}\sum_{j}^n \left[\llangle
+                z_{j}
+                F
+            \rrangle_g
+            -
+            \llangle
+                z_{j}
+            \rrangle_g
+            \llangle
+                F
+            \rrangle_g\right]
+        %
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        }  
+        + O(v^2)
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    Voltando os índices:
+    \tiny
+    \begin{align*}
+        &=\llangle 
+            F
+        \rrangle_g  
+        +
+        \frac{
+            \sum_{\beta}v^{(\beta)}\sum_{j}^n \left[\llangle
+                z_{j}
+                F
+            \rrangle_g
+            -
+            \llangle
+                z_{j}
+            \rrangle_g
+            \llangle
+                F
+            \rrangle_g\right]
+        %
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        }  
+        + O(v^2) \\
+        &=\llangle
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g  
+        +
+        \frac{
+            1
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        }  \\
+        & \times \frac{1}{8} \{
+         \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)} \sum_{j_1,j_2=1}^n[\llangle
+            z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g \\
+        & - \llangle
+            z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+        \rrangle_g
+        \llangle
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g]
+        \}\\
+        & + O(v^2) \\
+        % 
+        % 
+        % &\llangle 
+        %     F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        % \rrangle_g \\
+        % &+ \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)} 
+        % \sum_{j_1,j_2=1}^n [
+        %     \llangle
+        %         z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        %     \rrangle_g \\
+        %     &-\llangle
+        %         z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+        %     \rrangle_g
+        %     \llangle
+        %         F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        %     \rrangle_g 
+        % ] \\
+        % &+ O(v^2)
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Wick Wick Wick}
+    E de algum jeito\dots
+    \tiny
+    \begin{align*}
+        &=\llangle
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g  
+        +
+        \frac{
+            1
+        }{
+            1 + \frac{1}{8} \sum_{\beta}v^{(\beta)}
+            \llangle
+            \sum_{j}^n z_{j}
+            \rrangle_g
+        } \\
+        & \times \frac{1}{8} \{
+         \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)} \sum_{j_1,j_2=1}^n[\llangle
+            z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g \\
+        & - \llangle
+            z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+        \rrangle_g
+        \llangle
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g]
+        \}\\
+        & + O(v^2) \\ \Pause        
+        & \stackrel{???}{=} \llangle 
             F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
         \rrangle_g \\
         &+ \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)} 
@@ -1082,9 +1365,49 @@ Capítulo 4: RG-flow de pré-ativações
         ] \\
         &+ O(v^2)
     \end{align*}
+\end{frame}
 
+\begin{frame}{4.2 - Wick Wick Wick}
+    Como é no livro:
+    \tiny
+    \begin{align*}
+        & \mathbb E[F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})] = \frac{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}F(z_{i_1;\alpha_1}, \dots, z_{i_m;\alpha_m})}{\int \prod_{i;\alpha}dz_{i;\alpha}e^{-S(z)}} \Pause \\
+        &=\frac{ \llangle
+            \exp\left\{
+                \frac{1}{8}
+                \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \right\}F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g
+        }{
+            \llangle
+            \exp \left\{
+                    \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)}\sum_{j_1,j_2=1}^n z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \right\}
+            \rrangle_g
+        } \Pause 
+        &=\llangle 
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g \\
+        &= \llangle 
+            F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+        \rrangle_g \\
+        &+ \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D}v^{(\beta_1\beta_2)(\beta_3\beta_4)} 
+        \sum_{j_1,j_2=1}^n [
+            \llangle
+                z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+            \rrangle_g \\
+            &-\llangle
+                z_{j_1;\beta_1}z_{j_1;\beta_2}z_{j_2;\beta_3}z_{j_2;\beta_4}
+            \rrangle_g
+            \llangle
+                F(z_{i_1\alpha_1},\dots,z_{i_m\alpha_m})
+            \rrangle_g 
+        ]\\
+        &+ O(v^2)
+    \end{align*}
     \pause
-    Obs: no final, usando a expansão de Taylor $e^v \approx 1+v + O(v^2)$.
+
+    Palpite: eles se livram do denominador da fração no final com uma aproximação de Taylor (talvez?).
 \end{frame}
 
 \begin{frame}{4.2 - Wick Wick Wick}
