@@ -1631,8 +1631,9 @@ Capítulo 4: RG-flow de pré-ativações
 
 \begin{frame}{4.2 - Schwinger-Dyson}
     \footnotesize
+    Colocando de volta nas expressões de segunda camada, usando o fato que $\mathbb{E}[\widehat{\Delta G}_{\beta_1 \beta_2}^{(2)}]=0$ e $\mathbb{E}[\widehat{\Delta G}_{\beta_1 \beta_2}^{(2)}\widehat{\Delta G}_{\beta_3\beta_4}^{(2)}]=\frac{1}{n_1}V^{(2)}_{(\beta_1\beta_2),(\beta_3\beta_4)}$:
     \begin{align*}
-        p\left(z^{(2)} \mid D\right)
+        p\left(z^{(2)} \mid D\right) &= \int \left[\prod_{i;\alpha} dz^{(1)}_{i;\alpha}\right]p(z^{(1)} \mid z^{(2)}) p(z^{(1)} \mid D) \\
         &= \frac{1}{\left| 2\pi G^{(2)} \right|^{\frac{n_2}{2}} }
         \exp\left(
             -\frac{1}{2} \sum_{j=1}^{n_2} \sum_{\alpha_1, \alpha_2 \in D}
@@ -1652,6 +1653,65 @@ Capítulo 4: RG-flow de pré-ativações
         \Bigg\} \\
         &+ \mathcal{O}\left( \frac{1}{n_1^2} \right)
     \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Schwinger-Dyson}
+    Tomando o logaritmo pra isolar a ação quártica e absorvendo os termos irrelevantes na função de partição:
+    \footnotesize
+    \begin{align*}
+        S(z) = \frac{1}{2} &\sum_{\alpha_1,\alpha_2 \in D} \left[ G^{(2)}_{\alpha_1 \alpha_2} + \mathcal{O}\left( \frac{1}{n_1} \right) \right] \sum_{i=1}^{n_2} z_{i;\alpha_1} z_{i;\alpha_2} \\
+        &- \frac{1}{8} \sum_{\alpha_1,\dots,\alpha_4 \in D} \frac{1}{n_1} V^{(2)}_{(\alpha_1 \alpha_2)(\alpha_3 \alpha_4)} \sum_{i_1,i_2=1}^{n_2} z_{i_1;\alpha_1} z_{i_1;\alpha_2} z_{i_2;\alpha_3} z_{i_2;\alpha_4}
+        + \mathcal{O}\left( \frac{1}{n_1^2} \right).
+    \end{align*}
+\end{frame}
+
+
+\subsection{4.2 - Ação Quase-Gaussiana em ação}
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}{4.2 - Ação quase gaussiana}
+\begin{align*}
+    \mathbb{E} \left[ \sigma(z_{i_1;\alpha_1}) \sigma(z_{i_1;\alpha_2}) \right]
+    &= \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \rangle_g 
+    + \frac{1}{8} \sum_{\beta_1,\dots,\beta_4 \in D} v^{(\beta_1 \beta_2)(\beta_3 \beta_4)} \\ 
+    &\times[
+    \langle \sigma_{\alpha_1} \sigma_{\alpha_2} (z_{\beta_1} z_{\beta_2} - g_{\beta_1 \beta_2})(z_{\beta_3} z_{\beta_4} - g_{\beta_3 \beta_4}) \rangle_g \\
+    &+ 2n \langle \sigma_{\alpha_1} \sigma_{\alpha_2} (z_{\beta_1} z_{\beta_2} - g_{\beta_1 \beta_2}) \rangle_g \, g_{\beta_3 \beta_4} \\
+    &- 2 \langle \sigma_{\alpha_1} \sigma_{\alpha_2} \rangle_g \, g_{\beta_1 \beta_3} g_{\beta_2 \beta_4}    
+    ] + \mathcal{O}(v^2).
+\end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Ação quase gaussiana}
+    \tiny
+    
+    \begin{align*}
+        &\mathbb{E}\left[\sigma(z_{i_1; \alpha_1})\, \sigma(z_{i_1; \alpha_2})\, \sigma(z_{i_2; \alpha_3})\, \sigma(z_{i_2; \alpha_4})\right] \\
+        &\quad - \mathbb{E}\left[\sigma(z_{i_1; \alpha_1})\, \sigma(z_{i_1; \alpha_2})\right] \mathbb{E}\left[\sigma(z_{i_2; \alpha_3})\, \sigma(z_{i_2; \alpha_4})\right] \\
+        &= \frac{1}{8} \sum_{\beta_1, \ldots, \beta_4 \in D} v^{(\beta_1 \beta_2)(\beta_3 \beta_4)} \sum_{j_1, j_2 = 1}^{n} \Big[ \\
+        &\quad \llangle z_{j_1;\beta_1} z_{j_1;\beta_2} z_{j_2;\beta_3} z_{j_2;\beta_4} \sigma_{i_1;\alpha_1} \sigma_{i_1;\alpha_2} \sigma_{i_2;\alpha_3} \sigma_{i_2;\alpha_4} \rrangle_g \\
+        &\quad - \llangle z_{j_1;\beta_1} z_{j_1;\beta_2} z_{j_2;\beta_3} z_{j_2;\beta_4} \sigma_{i_1;\alpha_1} \sigma_{i_1;\alpha_2} \rrangle_g \llangle \sigma_{i_2;\alpha_3} \sigma_{i_2;\alpha_4} \rrangle_g \\
+        &\quad - \llangle z_{j_1;\beta_1} z_{j_1;\beta_2} z_{j_2;\beta_3} z_{j_2;\beta_4} \sigma_{i_2;\alpha_3} \sigma_{i_2;\alpha_4} \rrangle_g \llangle \sigma_{i_1;\alpha_1} \sigma_{i_1;\alpha_2} \rrangle_g \\
+        &\quad + \llangle z_{j_1;\beta_1} z_{j_1;\beta_2} z_{j_2;\beta_3} z_{j_2;\beta_4} \rrangle_g \llangle \sigma_{i_1;\alpha_1} \sigma_{i_1;\alpha_2} \rrangle_g \llangle \sigma_{i_2;\alpha_3} \sigma_{i_2;\alpha_4} \rrangle_g \Big] \\
+        &= \frac{1}{4} \sum_{\beta_1, \ldots, \beta_4 \in D} v^{(\beta_1 \beta_2)(\beta_3 \beta_4)} \left\langle \sigma_{\alpha_1} \sigma_{\alpha_2} (z_{\beta_1} z_{\beta_2} - g_{\beta_1 \beta_2}) \right\rangle_g \left\langle \sigma_{\alpha_3} \sigma_{\alpha_4} (z_{\beta_3} z_{\beta_4} - g_{\beta_3 \beta_4}) \right\rangle_g + \mathcal{O}(v^2)
+    \end{align*}
+\end{frame}
+
+\begin{frame}{4.2 - Ação quase gaussiana}
+    \tiny
+    Dados $A_1, A_2 \subset D$ subconjuntos de amostras e $F(z_{i_1;A_1}),G(z_{i_2;A_2})$ funções de preativações dependendo delas, com um \textit{pequeno abuso de notação} colocamos a dependência da amostra no subscrito.
+    \begin{align*}
+        &\text{Cov}\left[ F(z_{i_1}; A_1), G(z_{i_2}; A_2) \right] \\
+        &\equiv \mathbb{E}\left[ F(z_{i_1}; A_1) G(z_{i_2}; A_2) \right] 
+        - \mathbb{E}\left[ F(z_{i_1}; A_1) \right] \mathbb{E}\left[ G(z_{i_2}; A_2) \right] \nonumber \\
+        &= \frac{1}{4} \sum_{\beta_1, \ldots, \beta_4 \in D} v^{(\beta_1 \beta_2)(\beta_3 \beta_4)} 
+        \left\langle (z_{\beta_1} z_{\beta_2} - g_{\beta_1 \beta_2}) F(z_{A_1}) \right\rangle_g 
+        \left\langle (z_{\beta_3} z_{\beta_4} - g_{\beta_3 \beta_4}) G(z_{A_2}) \right\rangle_g 
+        + \mathcal{O}(v^2).
+    \end{align*}
+
 \end{frame}
 
 \begin{frame}
